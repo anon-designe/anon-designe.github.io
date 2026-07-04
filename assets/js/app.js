@@ -12,13 +12,17 @@ const isLowEndDevice = () => {
     return false;
 };
 
-// AOS - with performance optimization
+// AOS - lighter during scroll
 const lowEnd = isLowEndDevice();
 AOS.init({
-    duration: lowEnd ? 400 : 700,
+    duration: lowEnd ? 250 : 400,
     once: true,
-    disable: lowEnd ? 'mobile' : false,
-    throttleDelay: 100
+    disable: lowEnd ? true : 'mobile',
+    offset: 72,
+    throttleDelay: 200,
+    debounceDelay: 80,
+    anchorPlacement: 'top-bottom',
+    startEvent: 'DOMContentLoaded'
 });
 
 // Typewriter Effect
@@ -99,15 +103,104 @@ window.onload = function () {
 
 
 // Close mobile menu after clicking a link
+(function () {
+    const navbarCollapse = document.querySelector('.navbar-collapse');
+    let bsCollapse = null;
+
 document.querySelectorAll('.navbar-nav .nav-link').forEach(link => {
     link.addEventListener('click', () => {
-        const navbarCollapse = document.querySelector('.navbar-collapse');
-        if (navbarCollapse.classList.contains('show')) {
-            const bsCollapse = new bootstrap.Collapse(navbarCollapse);
+            if (!navbarCollapse || !navbarCollapse.classList.contains('show')) return;
+            if (!bsCollapse) {
+                bsCollapse = bootstrap.Collapse.getOrCreateInstance(navbarCollapse);
+            }
             bsCollapse.hide();
-        }
+        });
     });
-});
+})();
+
+// Fast smooth section navigation
+(function () {
+    const SCROLL_OFFSET = 96;
+    let scrollAnimId = null;
+
+    const settings = JSON.parse(localStorage.getItem('siteSettings') || '{}');
+    if (settings.autoScroll !== false) {
+        document.documentElement.classList.add('smooth-scroll');
+    }
+
+    function isSmoothScrollEnabled() {
+        return document.documentElement.classList.contains('smooth-scroll');
+    }
+
+    function easeOutCubic(t) {
+        return 1 - Math.pow(1 - t, 3);
+    }
+
+    function scrollToY(targetY, smooth) {
+        if (scrollAnimId) {
+            cancelAnimationFrame(scrollAnimId);
+            scrollAnimId = null;
+        }
+
+        const startY = window.scrollY;
+        const distance = targetY - startY;
+        const useSmooth = smooth
+            && isSmoothScrollEnabled()
+            && !window.matchMedia('(prefers-reduced-motion: reduce)').matches
+            && Math.abs(distance) > 24;
+
+        if (!useSmooth) {
+            window.scrollTo(0, targetY);
+            return;
+        }
+
+        const duration = Math.min(520, Math.max(300, Math.abs(distance) * 0.35));
+        const startTime = performance.now();
+        document.documentElement.classList.add('is-scrolling');
+
+        function step(now) {
+            const progress = Math.min((now - startTime) / duration, 1);
+            window.scrollTo(0, startY + distance * easeOutCubic(progress));
+
+            if (progress < 1) {
+                scrollAnimId = requestAnimationFrame(step);
+                return;
+            }
+
+            scrollAnimId = null;
+            document.documentElement.classList.remove('is-scrolling');
+            if (window.AOS) {
+                if (typeof AOS.refreshHard === 'function') AOS.refreshHard();
+                else AOS.refresh();
+            }
+        }
+
+        scrollAnimId = requestAnimationFrame(step);
+    }
+
+    function scrollToSection(target) {
+        if (!target) return;
+        const y = target.getBoundingClientRect().top + window.scrollY - SCROLL_OFFSET;
+        scrollToY(Math.max(0, y), true);
+    }
+
+    document.addEventListener('click', (e) => {
+        const link = e.target.closest('a[href^="#"]');
+        if (!link) return;
+
+        const href = link.getAttribute('href');
+        if (!href || href === '#') return;
+
+        const target = document.querySelector(href);
+        if (!target) return;
+
+        e.preventDefault();
+        scrollToSection(target);
+        history.pushState(null, '', href);
+    });
+
+    window.siteScrollTo = scrollToY;
+})();
 
 // Live Info Section - Weather Icons
 function getWeatherIcon(code) {
@@ -170,500 +263,88 @@ fetch('https://api.ipify.org?format=json')
         if (ipEl) ipEl.textContent = 'Unavailable';
     });
 
-// Gallery Data
-const galleryData = {
-    'design-print': {
-        title: 'Print Design Gallery',
-        items: [
-            {
-                image: './assets/images/project-01.webp',
-                title: 'Business Card',
-                badge: 'Photoshop',
-                badgeClass: 'bg-info',
-                description: 'Professional business card design with attractive colors and refined layout'
-            },
-            {
-                image: './assets/images/project-02.webp',
-                title: 'Business Card',
-                badge: 'Photoshop',
-                badgeClass: 'bg-info',
-                description: 'Elegant business card design with distinctive visual effects'
-            },
-            {
-                image: './assets/images/project-03.webp',
-                title: 'Business Card',
-                badge: 'Photoshop',
-                badgeClass: 'bg-info',
-                description: 'Modern business card design with elegant minimalist style'
-            },
-            {
-                image: './assets/images/project-04.webp',
-                title: 'Business Card',
-                badge: 'Photoshop',
-                badgeClass: 'bg-info',
-                description: 'Classic business card design with modern touches'
-            },
-            {
-                image: './assets/images/project-05.webp',
-                title: 'Menu Card',
-                badge: 'Photoshop',
-                badgeClass: 'bg-info',
-                description: 'Attractive menu design with appetizing images and excellent organization'
-            },
-            {
-                image: './assets/images/project-06.webp',
-                title: 'Restaurant Menu',
-                badge: 'Corel Draw',
-                badgeClass: 'bg-info',
-                description: 'Professional restaurant menu design with warm colors and organized layout'
-            }
-        ]
-    },
-    'design-web': {
-        title: 'Web Design Gallery',
-        items: [
-            {
-                image: './assets/images/yemen.webp',
-                title: 'الحياة في اليونان',
-                badge: 'Animation',
-                badgeClass: 'bg-info',
-                description: 'Life in Greece - A free service website about everything related to Greece',
-                websiteUrl: 'https://anon-site.github.io/greece/'
-            },
-            {
-                image: './assets/images/q1.webp',
-                title: 'TV Player',
-                badge: 'Animation',
-                badgeClass: 'bg-info',
-                description: 'Electronic TV player with modern interface and advanced features',
-                websiteUrl: 'https://anon-site.github.io/noon.tv'
-            },
-            {
-                image: './assets/images/IslamTime.webp',
-                title: 'Islam Time',
-                badge: 'Islamic App',
-                badgeClass: 'bg-info',
-                description: 'Islamic prayer times app with Hijri calendar and Quran',
-                websiteUrl: 'https://anon-site.github.io/Islam/'
-            },
-            {
-                image: './assets/images/b1.webp',
-                title: 'Work Manager',
-                badge: 'Data Entry',
-                badgeClass: 'bg-info',
-                description: 'Advanced work management system with database',
-                websiteUrl: 'https://anon-site.github.io/Work-Manager/'
-            }
-        ]
-    }
-};
 
-// Helper functions for Gallery
-function getTechnologiesForProject(projectTitle) {
-    const techMap = {
-        'الحياة في اليونان': ['HTML5', 'CSS3', 'JavaScript', 'Animation'],
-        'TV Player': ['HTML5', 'CSS3', 'JavaScript', 'Video API'],
-        'Islam Time': ['HTML5', 'CSS3', 'JavaScript', 'Islamic API'],
-        'Work Manager': ['HTML5', 'CSS3', 'JavaScript', 'PHP', 'Database'],
-        'Business Card': ['Photoshop', 'Design', 'Print Ready'],
-        'Menu Card': ['Photoshop', 'Design', 'Print Ready'],
-        'Restaurant Menu': ['Corel Draw', 'Design', 'Print Ready']
-    };
-    return techMap[projectTitle] || ['Design', 'Creative'];
-}
-
-function getProjectDate(projectTitle) {
-    const dateMap = {
-        'الحياة في اليونان': '2024',
-        'TV Player': '2025',
-        'Islam Time': '2025',
-        'Work Manager': '2023',
-        'Business Card': '2022',
-        'Menu Card': '2021',
-        'Restaurant Menu': '2023'
-    };
-    return dateMap[projectTitle] || '2024';
-}
-
-// Open Gallery Modal
-function openGallery(type) {
-    const modal = document.getElementById('galleryModal');
-    const title = document.getElementById('galleryTitle');
-    const grid = document.getElementById('galleryGrid');
-
-    if (!modal || !galleryData[type]) return;
-
-    title.textContent = galleryData[type].title;
-    grid.innerHTML = '';
-
-    galleryData[type].items.forEach((item, index) => {
-        const galleryItem = document.createElement('div');
-        galleryItem.className = 'gallery-item';
-        galleryItem.style.animationDelay = `${index * 0.1}s`;
-
-        const technologies = getTechnologiesForProject(item.title);
-        const projectDate = getProjectDate(item.title);
-
-        const technologiesHTML = technologies.map(tech =>
-            `<span class="gallery-tech-tag">${tech}</span>`
-        ).join('');
-
-        const websiteLink = item.websiteUrl ?
-            `<a href="${item.websiteUrl}" target="_blank" rel="noopener noreferrer" class="gallery-visit-btn">
-                <i class="ri-external-link-line"></i> Visit Website
-            </a>` : '';
-
-        galleryItem.innerHTML = `
-            <img src="${item.image}" alt="${item.title}" loading="lazy">
-            <div class="gallery-item-content">
-                <span class="badge ${item.badgeClass}">${item.badge}</span>
-                <h5>${item.title}</h5>
-                <p class="gallery-description">${item.description}</p>
-                <div class="gallery-technologies">
-                    ${technologiesHTML}
-                </div>
-                <p class="gallery-date">Project Date: ${projectDate}</p>
-                ${websiteLink}
-            </div>
-        `;
-
-        grid.appendChild(galleryItem);
-    });
-
-    modal.style.display = 'block';
-    modal.classList.add('show');
-    document.body.style.overflow = 'hidden';
-}
-
-// Close Gallery Modal
-function closeGallery() {
-    const modal = document.getElementById('galleryModal');
-    modal.classList.remove('show');
-    modal.style.display = 'none';
-    document.body.style.overflow = '';
-}
-
-// Initialize Gallery functionality
-document.addEventListener('DOMContentLoaded', function () {
-    const galleryModal = document.getElementById('galleryModal');
-    const galleryClose = document.querySelector('.gallery-close');
-
-    if (galleryClose) {
-        galleryClose.addEventListener('click', closeGallery);
-    }
-
-    if (galleryModal) {
-        galleryModal.addEventListener('click', function (e) {
-            if (e.target === galleryModal) {
-                closeGallery();
-            }
-        });
-
-        document.addEventListener('keydown', function (e) {
-            if (e.key === 'Escape' && galleryModal.classList.contains('show')) {
-                closeGallery();
-            }
-        });
-    }
-
-    // Image Modal for Design Print and Design Web sections
-    initializeImageModals();
-});
-
-// Image Modal Functionality
-function initializeImageModals() {
-    // Project data with all information
-    const projectsData = {
-        // Design Print Projects
-        'project-01.webp': {
-            title: 'Business Card',
-            description: 'Modern and elegant business card design with clean layout, perfect for creating a professional first impression for your brand.',
-            technologies: ['Photoshop', 'Print Design', 'Professional'],
-            date: '2022',
-            badge: { text: 'Photoshop', class: 'bg-info' }
-        },
-        'project-02.webp': {
-            title: 'Business Card',
-            description: 'Creative business card featuring unique typography and color scheme, designed to stand out and leave a lasting impression.',
-            technologies: ['Photoshop', 'Creative', 'Premium'],
-            date: '2022',
-            badge: { text: 'Photoshop', class: 'bg-info' }
-        },
-        'project-03.webp': {
-            title: 'Business Card',
-            description: 'Minimalist business card design with focus on simplicity and readability, ideal for modern corporate branding.',
-            technologies: ['Photoshop', 'Minimalist', 'Corporate'],
-            date: '2023',
-            badge: { text: 'Photoshop', class: 'bg-info' }
-        },
-        'project-04.webp': {
-            title: 'Business Card',
-            description: 'Elegant and luxurious business card design with sophisticated styling, perfect for high-end businesses and executives.',
-            technologies: ['Photoshop', 'Elegant', 'Luxury'],
-            date: '2023',
-            badge: { text: 'Photoshop', class: 'bg-info' }
-        },
-        'project-05.webp': {
-            title: 'Menu Card',
-            description: 'Attractive menu card design with organized layout and appetizing presentation, perfect for cafes and restaurants.',
-            technologies: ['Photoshop', 'Menu Design', 'Food & Beverage'],
-            date: '2021',
-            badge: { text: 'Photoshop', class: 'bg-info' }
-        },
-        'project-06.webp': {
-            title: 'Restaurant Menu',
-            description: 'Comprehensive restaurant menu design with detailed sections and beautiful graphics, optimized for print quality.',
-            technologies: ['Corel Draw', 'Restaurant', 'Full Menu'],
-            date: '2023',
-            badge: { text: 'Corel Draw', class: 'bg-danger' }
-        },
-        // Design Web Projects
-        'yemen.webp': {
-            title: 'Life in Greece',
-            description: 'Comprehensive guide about living in Greece, featuring cultural insights, practical information, and beautiful animations for an engaging user experience.',
-            technologies: ['Animation', 'CSS3', 'JavaScript'],
-            date: '2024',
-            badge: { text: 'Animation', class: 'bg-info' },
-            websiteUrl: 'https://anon-site.github.io/greece/'
-        },
-        'q1.webp': {
-            title: 'TV Player',
-            description: 'Modern streaming platform with intuitive interface, supporting multiple video formats and providing seamless viewing experience across all devices.',
-            technologies: ['Streaming', 'HTML5', 'Responsive'],
-            date: '2025',
-            badge: { text: 'Streaming', class: 'bg-danger' },
-            websiteUrl: 'https://anon-site.github.io/noon.tv'
-        },
-        'IslamTime.webp': {
-            title: 'Islam Time',
-            description: 'Islamic prayer times application with accurate location-based calculations, Quranic verses, and Islamic calendar features for Muslim community.',
-            technologies: ['Islamic', 'API', 'Real-time'],
-            date: '2025',
-            badge: { text: 'Islamic App', class: 'bg-success' },
-            websiteUrl: 'https://anon-site.github.io/Islam/'
-        },
-        'b1.webp': {
-            title: 'Work Manager',
-            description: 'Professional task management system with employee tracking, project organization, and data entry capabilities for efficient workplace productivity.',
-            technologies: ['Management', 'Bootstrap', 'CRUD'],
-            date: '2023',
-            badge: { text: 'Data Entry', class: 'bg-primary' },
-            websiteUrl: 'https://anon-site.github.io/Work-Manager/'
-        },
-        'Panda.jpeg': {
-            title: 'Panda',
-            description: 'Explore Panda, a refined web experience featuring modern aesthetics, seamless navigation, and a user-centric design approach. This project demonstrates advanced web design principles.',
-            technologies: ['Web Design', 'Modern', 'Responsive'],
-            date: '2026',
-            badge: { text: 'Web Design', class: 'bg-gradient bg-purple' },
-            websiteUrl: 'https://anon-site.github.io/Panda/'
-        },
-        'falconx.webp': {
-            title: 'Falcon X',
-            description: 'Advanced software solutions for Windows, Android, and FRP tools. Professional desktop applications and powerful mobile apps for various technical needs.',
-            technologies: ['Windows', 'Android', 'FRP Tools'],
-            date: '2025',
-            badge: { text: 'Software Solutions', class: 'bg-primary' },
-            websiteUrl: 'https://anon-site.github.io/falcon.x'
-        }
-    };
-
-    // Create modal if it doesn't exist
-    if (!document.getElementById('imageModal')) {
-        const modalHTML = `
-            <div id="imageModal" class="image-modal">
-                <div class="modal-content">
-                    <span class="modal-close" onclick="closeImageModal()">&times;</span>
-                    <img id="modalImage" src="" alt="">
-                    <div class="modal-caption">
-                        <div class="modal-title-row">
-                            <h5 id="modalTitle"></h5>
-                            <span id="modalBadge" class="badge"></span>
-                        </div>
-                        <div class="modal-details">
-                            <p id="modalDescription" class="modal-description"></p>
-                            <div id="modalTechnologies" class="modal-technologies"></div>
-                            <p id="modalDate" class="modal-date"></p>
-                            <div id="modalVisitBtn" class="visit-website-btn" style="display: none;">
-                                <a href="#" target="_blank" rel="noopener noreferrer" class="visit-link">
-                                    <i class="ri-external-link-line"></i>
-                                    <span>Visit Website</span>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        `;
-        document.body.insertAdjacentHTML('beforeend', modalHTML);
-    }
-
-    // Add click event to all images in Design Print and Design Web sections
-    const sections = ['#work', '#Models'];
-    sections.forEach(sectionId => {
-        const images = document.querySelectorAll(`${sectionId} .border-hover img`);
-        images.forEach(img => {
-            img.style.cursor = 'pointer';
-            img.addEventListener('click', function () {
-                const imgSrc = this.getAttribute('src');
-                const fileName = imgSrc.split('/').pop();
-                const projectData = projectsData[fileName];
-
-                if (projectData) {
-                    openImageModal(imgSrc, projectData);
-                }
-            });
-        });
-    });
-
-    // Close modal on Esc key
-    document.addEventListener('keydown', function (e) {
-        if (e.key === 'Escape') {
-            closeImageModal();
-        }
-    });
-
-    // Close modal on background click
-    const imageModal = document.getElementById('imageModal');
-    if (imageModal) {
-        imageModal.addEventListener('click', function (e) {
-            if (e.target === imageModal) {
-                closeImageModal();
-            }
-        });
-    }
-}
-
-function openImageModal(imageSrc, data) {
-    const modal = document.getElementById('imageModal');
-    const modalImage = document.getElementById('modalImage');
-    const modalTitle = document.getElementById('modalTitle');
-    const modalBadge = document.getElementById('modalBadge');
-    const modalDescription = document.getElementById('modalDescription');
-    const modalTechnologies = document.getElementById('modalTechnologies');
-    const modalDate = document.getElementById('modalDate');
-    const modalVisitBtn = document.getElementById('modalVisitBtn');
-
-    if (!modal) return;
-
-    // Set background image (Removed for cleaner look)
-    // modal.style.backgroundImage = `url('${imageSrc}')`;
-
-
-    // Set image
-    modalImage.src = imageSrc;
-    modalImage.alt = data.title;
-
-    // Set title
-    modalTitle.textContent = data.title;
-
-    // Set badge
-    modalBadge.textContent = data.badge.text;
-    modalBadge.className = `badge ${data.badge.class}`;
-
-    // Set description
-    modalDescription.textContent = data.description;
-
-    // Set technologies
-    modalTechnologies.innerHTML = data.technologies.map(tech =>
-        `<span class="modal-tech-tag">${tech}</span>`
-    ).join('');
-
-    // Set date
-    modalDate.textContent = `Project Date: ${data.date}`;
-
-    // Set visit website button
-    if (data.websiteUrl) {
-        modalVisitBtn.style.display = 'inline-block';
-        const visitLink = modalVisitBtn.querySelector('a, .visit-link');
-        if (visitLink) {
-            visitLink.href = data.websiteUrl;
-            // Ensure it opens in new tab
-            visitLink.setAttribute('target', '_blank');
-            visitLink.setAttribute('rel', 'noopener noreferrer');
-
-            // Remove old event listeners and add new one
-            const newVisitLink = visitLink.cloneNode(true);
-            visitLink.parentNode.replaceChild(newVisitLink, visitLink);
-
-            // Add click event
-            newVisitLink.addEventListener('click', function (e) {
-                e.preventDefault();
-                e.stopPropagation();
-                window.open(data.websiteUrl, '_blank', 'noopener,noreferrer');
-            });
-        }
-    } else {
-        modalVisitBtn.style.display = 'none';
-    }
-
-    // Show modal
-    modal.classList.add('show');
-    document.body.style.overflow = 'hidden';
-
-    // Add zoom effect that follows mouse movement
-    modalImage.addEventListener('mousemove', function (e) {
-        const rect = this.getBoundingClientRect();
-        const x = ((e.clientX - rect.left) / rect.width) * 100;
-        const y = ((e.clientY - rect.top) / rect.height) * 100;
-        this.style.transformOrigin = `${x}% ${y}%`;
-    });
-
-    modalImage.addEventListener('mouseleave', function () {
-        this.style.transformOrigin = 'center center';
-    });
-}
-
-function closeImageModal() {
-    const modal = document.getElementById('imageModal');
-    if (modal) {
-        modal.classList.remove('show');
-        // modal.style.backgroundImage = ''; // Clear background image
-        document.body.style.overflow = '';
-    }
-}
-
-// Navbar Scroll Effect
-window.addEventListener('scroll', function () {
+// Navbar scroll + back to top — single throttled handler
+(function () {
+    let ticking = false;
     const navbar = document.querySelector('.navbar');
-    if (!navbar) return;
-    if (window.scrollY > 50) {
-        navbar.classList.add('scrolled');
-    } else {
-        navbar.classList.remove('scrolled');
-    }
-});
+    const backToTopButton = document.getElementById('backToTop');
 
-// Animated Strings Canvas Effect
-(function() {
+    function onScroll() {
+        const scrollY = window.scrollY;
+
+        if (navbar) {
+            navbar.classList.toggle('scrolled', scrollY > 50);
+        }
+
+        if (backToTopButton) {
+            backToTopButton.classList.toggle('show', scrollY > 300);
+        }
+
+        ticking = false;
+    }
+
+    window.addEventListener('scroll', () => {
+        if (!ticking) {
+            ticking = true;
+            requestAnimationFrame(onScroll);
+        }
+    }, { passive: true });
+
+    if (backToTopButton) {
+        backToTopButton.addEventListener('click', (e) => {
+            e.preventDefault();
+            if (window.siteScrollTo) {
+                window.siteScrollTo(0, true);
+            } else {
+                window.scrollTo({ top: 0, behavior: 'auto' });
+            }
+        });
+    }
+
+    onScroll();
+})();
+
+// Animated Strings Canvas Effect — optimized for performance
+(function () {
     const canvas = document.getElementById('strings-canvas');
     if (!canvas) return;
 
-    const ctx = canvas.getContext('2d');
-    let width, height;
-    let particles = [];
-    let animationId;
-    let isActive = true;
-
-    // Mouse tracking
-    let mouse = { x: null, y: null, radius: 200 };
-    let isMouseInHero = false;
-
-    // Check for low-end devices
+    const isMobile = window.matchMedia('(max-width: 768px)').matches;
     const isLowEnd = isLowEndDevice();
 
-    // Configuration
+    function shouldRunCanvas() {
+        return !isMobile
+            && !isLowEnd
+            && !document.body.classList.contains('no-animations');
+    }
+
+    if (!shouldRunCanvas()) {
+        canvas.style.display = 'none';
+        return;
+    }
+
+    const ctx = canvas.getContext('2d', { alpha: true });
+    let width, height;
+    let particles = [];
+    let animationId = null;
+    let isVisible = true;
+    let isEnabled = true;
+    let mouseTicking = false;
+
+    let mouse = { x: null, y: null };
+    let isMouseInHero = false;
+
     const config = {
-        particleCount: isLowEnd ? 25 : 45,
-        connectionDistance: 150,
-        moveSpeed: 0.5,
-        lineOpacity: 0.15,
-        particleSize: 2,
-        mouseConnectionDistance: 200,
-        mouseAttractionForce: 0.02
+        particleCount: 22,
+        connectionDistance: 130,
+        connectionDistanceSq: 130 * 130,
+        moveSpeed: 0.4,
+        lineOpacity: 0.12,
+        mouseConnectionDistance: 160,
+        mouseConnectionDistanceSq: 160 * 160
     };
 
-    // Colors for light/dark themes
     function getColors() {
         const isDark = document.body.classList.contains('dark-theme');
         return {
@@ -673,103 +354,74 @@ window.addEventListener('scroll', function () {
         };
     }
 
-    // Resize canvas
     function resize() {
         width = canvas.width = canvas.offsetWidth;
         height = canvas.height = canvas.offsetHeight;
     }
 
-    // Particle class
     class Particle {
         constructor() {
             this.x = Math.random() * width;
             this.y = Math.random() * height;
             this.vx = (Math.random() - 0.5) * config.moveSpeed;
             this.vy = (Math.random() - 0.5) * config.moveSpeed;
-            this.baseX = this.x;
-            this.baseY = this.y;
-            this.size = Math.random() * 1.5 + 1;
+            this.size = Math.random() * 1.2 + 0.8;
         }
 
         update() {
-            // Normal movement
             this.x += this.vx;
             this.y += this.vy;
 
-            // Bounce off edges
             if (this.x < 0 || this.x > width) this.vx *= -1;
             if (this.y < 0 || this.y > height) this.vy *= -1;
 
-            // Mouse interaction - attraction towards mouse
             if (isMouseInHero && mouse.x !== null && mouse.y !== null) {
                 const dx = mouse.x - this.x;
                 const dy = mouse.y - this.y;
-                const distance = Math.sqrt(dx * dx + dy * dy);
+                const distSq = dx * dx + dy * dy;
 
-                if (distance < mouse.radius) {
-                    const forceDirectionX = dx / distance;
-                    const forceDirectionY = dy / distance;
-                    const force = (mouse.radius - distance) / mouse.radius;
-                    const directionX = forceDirectionX * force * config.mouseAttractionForce * 5;
-                    const directionY = forceDirectionY * force * config.mouseAttractionForce * 5;
-
-                    this.vx += directionX;
-                    this.vy += directionY;
+                if (distSq < 40000) {
+                    const distance = Math.sqrt(distSq);
+                    const force = (200 - distance) / 200 * 0.08;
+                    this.vx += (dx / distance) * force;
+                    this.vy += (dy / distance) * force;
                 }
             }
 
-            // Speed limiting
-            const maxSpeed = 2;
-            const currentSpeed = Math.sqrt(this.vx * this.vx + this.vy * this.vy);
-            if (currentSpeed > maxSpeed) {
-                this.vx = (this.vx / currentSpeed) * maxSpeed;
-                this.vy = (this.vy / currentSpeed) * maxSpeed;
+            const speed = Math.sqrt(this.vx * this.vx + this.vy * this.vy);
+            if (speed > 1.5) {
+                this.vx = (this.vx / speed) * 1.5;
+                this.vy = (this.vy / speed) * 1.5;
             }
 
-            // Return to base speed gradually
             this.vx *= 0.99;
             this.vy *= 0.99;
-
-            // Add slight random movement
-            this.vx += (Math.random() - 0.5) * 0.02;
-            this.vy += (Math.random() - 0.5) * 0.02;
         }
 
-        draw() {
-            const colors = getColors();
+        draw(colors) {
             ctx.beginPath();
             ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-            ctx.fillStyle = `rgba(${colors.particle}, 0.6)`;
+            ctx.fillStyle = `rgba(${colors.particle}, 0.5)`;
             ctx.fill();
-
-            // Glow effect
-            ctx.shadowBlur = 10;
-            ctx.shadowColor = `rgba(${colors.particle}, 0.3)`;
-            ctx.fill();
-            ctx.shadowBlur = 0;
         }
     }
 
-    // Initialize particles
-    function init() {
+    function initParticles() {
         particles = [];
         for (let i = 0; i < config.particleCount; i++) {
             particles.push(new Particle());
         }
     }
 
-    // Draw connections between particles
-    function drawConnections() {
-        const colors = getColors();
-
+    function drawConnections(colors) {
         for (let i = 0; i < particles.length; i++) {
             for (let j = i + 1; j < particles.length; j++) {
                 const dx = particles[i].x - particles[j].x;
                 const dy = particles[i].y - particles[j].y;
-                const distance = Math.sqrt(dx * dx + dy * dy);
+                const distSq = dx * dx + dy * dy;
 
-                if (distance < config.connectionDistance) {
-                    const opacity = (1 - distance / config.connectionDistance) * config.lineOpacity;
+                if (distSq < config.connectionDistanceSq) {
+                    const opacity = (1 - Math.sqrt(distSq) / config.connectionDistance) * config.lineOpacity;
                     ctx.beginPath();
                     ctx.moveTo(particles[i].x, particles[i].y);
                     ctx.lineTo(particles[j].x, particles[j].y);
@@ -781,118 +433,116 @@ window.addEventListener('scroll', function () {
         }
     }
 
-    // Draw connections from mouse to particles
-    function drawMouseConnections() {
+    function drawMouseConnections(colors) {
         if (!isMouseInHero || mouse.x === null || mouse.y === null) return;
-
-        const colors = getColors();
 
         particles.forEach(particle => {
             const dx = mouse.x - particle.x;
             const dy = mouse.y - particle.y;
-            const distance = Math.sqrt(dx * dx + dy * dy);
+            const distSq = dx * dx + dy * dy;
 
-            if (distance < config.mouseConnectionDistance) {
-                const opacity = (1 - distance / config.mouseConnectionDistance) * 0.4;
+            if (distSq < config.mouseConnectionDistanceSq) {
+                const opacity = (1 - Math.sqrt(distSq) / config.mouseConnectionDistance) * 0.3;
                 ctx.beginPath();
                 ctx.moveTo(mouse.x, mouse.y);
                 ctx.lineTo(particle.x, particle.y);
                 ctx.strokeStyle = `rgba(${colors.mouseLine}, ${opacity})`;
-                ctx.lineWidth = 1.5;
+                ctx.lineWidth = 1;
                 ctx.stroke();
             }
         });
-
-        // Draw mouse point glow
-        ctx.beginPath();
-        ctx.arc(mouse.x, mouse.y, 4, 0, Math.PI * 2);
-        ctx.fillStyle = `rgba(${colors.mouseLine}, 0.8)`;
-        ctx.shadowBlur = 15;
-        ctx.shadowColor = `rgba(${colors.mouseLine}, 0.5)`;
-        ctx.fill();
-        ctx.shadowBlur = 0;
     }
 
-    // Animation loop
     function animate() {
-        if (!isActive) return;
+        if (!isEnabled || !isVisible) {
+            animationId = null;
+            return;
+        }
 
+        const colors = getColors();
         ctx.clearRect(0, 0, width, height);
 
-        // Update and draw particles
         particles.forEach(particle => {
             particle.update();
-            particle.draw();
+            particle.draw(colors);
         });
 
-        // Draw connections
-        drawConnections();
-        drawMouseConnections();
+        drawConnections(colors);
+        drawMouseConnections(colors);
 
         animationId = requestAnimationFrame(animate);
     }
 
-    // Mouse event handlers
+    function startAnimation() {
+        if (!animationId && isEnabled && isVisible) {
+            animate();
+        }
+    }
+
+    function stopAnimation() {
+        if (animationId) {
+            cancelAnimationFrame(animationId);
+            animationId = null;
+        }
+        ctx.clearRect(0, 0, width, height);
+    }
+
+    function setCanvasEnabled(enabled) {
+        isEnabled = enabled;
+        canvas.style.display = enabled ? '' : 'none';
+        if (enabled) {
+            startAnimation();
+        } else {
+            stopAnimation();
+        }
+    }
+
     function handleMouseMove(e) {
+        if (mouseTicking) return;
+        mouseTicking = true;
+        requestAnimationFrame(() => {
         const rect = canvas.getBoundingClientRect();
         mouse.x = e.clientX - rect.left;
         mouse.y = e.clientY - rect.top;
+            mouseTicking = false;
+        });
     }
 
-    function handleMouseEnter() {
-        isMouseInHero = true;
-    }
-
-    function handleMouseLeave() {
-        isMouseInHero = false;
-        mouse.x = null;
-        mouse.y = null;
-    }
-
-    // Visibility check - pause when not visible
-    function handleVisibility() {
         const hero = document.getElementById('hero');
-        if (!hero) return;
-
-        const observer = new IntersectionObserver((entries) => {
+    if (hero) {
+        const visibilityObserver = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
-                isActive = entry.isIntersecting;
-                if (isActive && !animationId) {
-                    animate();
-                } else if (!isActive && animationId) {
-                    cancelAnimationFrame(animationId);
-                    animationId = null;
+                isVisible = entry.isIntersecting;
+                if (isVisible) {
+                    startAnimation();
+                } else {
+                    stopAnimation();
                 }
             });
-        }, { threshold: 0.1 });
+        }, { threshold: 0.05 });
 
-        observer.observe(hero);
+        visibilityObserver.observe(hero);
+        hero.addEventListener('mousemove', handleMouseMove, { passive: true });
+        hero.addEventListener('mouseenter', () => { isMouseInHero = true; }, { passive: true });
+        hero.addEventListener('mouseleave', () => {
+            isMouseInHero = false;
+            mouse.x = null;
+            mouse.y = null;
+        }, { passive: true });
     }
 
-    // Initialize
-    resize();
-    init();
-    animate();
-    handleVisibility();
+    const settingsObserver = new MutationObserver(() => {
+        setCanvasEnabled(shouldRunCanvas());
+    });
+    settingsObserver.observe(document.body, { attributes: true, attributeFilter: ['class'] });
 
-    // Handle resize
     window.addEventListener('resize', () => {
         resize();
-        init();
-    });
+        initParticles();
+    }, { passive: true });
 
-    // Mouse events
-    const hero = document.getElementById('hero');
-    if (hero) {
-        hero.addEventListener('mousemove', handleMouseMove);
-        hero.addEventListener('mouseenter', handleMouseEnter);
-        hero.addEventListener('mouseleave', handleMouseLeave);
-    }
-
-    // Handle theme changes
-    const themeObserver = new MutationObserver(() => {
-        // Colors will update automatically in draw functions
-    });
-    themeObserver.observe(document.body, { attributes: true, attributeFilter: ['class'] });
+    resize();
+    initParticles();
+    startAnimation();
 })();
 
