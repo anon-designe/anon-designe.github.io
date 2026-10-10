@@ -20,15 +20,10 @@ html.is-scrolling .hero-animated {
     transition: none !important;
 }
 
-#services,
-#skills,
-#work,
-#Models,
-#contact,
-#live-info {
-    content-visibility: auto;
-    contain-intrinsic-size: auto 700px;
-}
+/* NOTE: content-visibility:auto was removed here on purpose.
+   It made off-screen sections (e.g. #contact) report a wrong
+   getBoundingClientRect() on first click, so anchor navigation
+   needed a second click to land on the right place. */
 
 /* Custom Scrollbar - Modern & Attractive */
 ::-webkit-scrollbar {

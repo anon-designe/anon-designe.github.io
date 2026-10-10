@@ -180,8 +180,32 @@ document.querySelectorAll('.navbar-nav .nav-link').forEach(link => {
 
     function scrollToSection(target) {
         if (!target) return;
-        const y = target.getBoundingClientRect().top + window.scrollY - SCROLL_OFFSET;
-        scrollToY(Math.max(0, y), true);
+        // Force layout so off-screen / lazy content reports the real position
+        // (protects against content-visibility, lazy images, AOS transforms).
+        // Force render if any ancestor still uses content-visibility:auto.
+        const prevVisibility = target.style.contentVisibility;
+        target.style.contentVisibility = 'visible';
+        void target.offsetHeight;
+
+        requestAnimationFrame(() => {
+            const y = target.getBoundingClientRect().top + window.scrollY - SCROLL_OFFSET;
+            scrollToY(Math.max(0, y), true);
+
+            // Restore inline override shortly after scroll starts/finishes.
+            setTimeout(() => {
+                target.style.contentVisibility = prevVisibility;
+            }, 600);
+
+            // Self-correct: if layout shifted mid-scroll (images/fonts/AOS),
+            // re-measure once and adjust so first click always lands correctly.
+            setTimeout(() => {
+                if (scrollAnimId) return; // still animating, let it finish
+                const correctedY = target.getBoundingClientRect().top + window.scrollY - SCROLL_OFFSET;
+                if (Math.abs(correctedY - window.scrollY) > 8) {
+                    scrollToY(Math.max(0, correctedY), true);
+                }
+            }, 550);
+        });
     }
 
     document.addEventListener('click', (e) => {
