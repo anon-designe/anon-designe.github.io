@@ -84,7 +84,7 @@ html {
 .hero-section {
     position: relative;
     overflow: hidden;
-    background: linear-gradient(135deg, #ffffff 0%, #f8fbfc 50%, #f0f9ff 100%);
+    background: var(--theme-bg-gradient);
 }
 
 /* Animated Strings Canvas */
@@ -458,7 +458,7 @@ html {
     left: 0;
     right: 0;
     height: 80px;
-    background: linear-gradient(to top, rgba(255, 255, 255, 1) 0%, rgba(255, 255, 255, 0) 100%);
+    background: linear-gradient(to top, var(--theme-bg) 0%, transparent 100%);
     z-index: 2;
     pointer-events: none;
 }
@@ -1361,6 +1361,302 @@ a {
     box-shadow: 0 6px 20px rgba(13, 202, 240, 0.4);
 }
 
+/* ===== SEASONAL THEMES ===== */
+
+:root {
+    --theme-primary: #0dcaf0;
+    --theme-secondary: #5b62f4;
+    --theme-accent: #9d4edd;
+    --theme-bg: #ffffff;
+    --theme-bg-gradient: linear-gradient(135deg, #ffffff 0%, #f8fbfc 50%, #f0f9ff 100%);
+    --theme-text: #212529;
+    --theme-text-muted: #6c757d;
+    --theme-card-bg: rgba(255, 255, 255, 0.95);
+    --theme-card-border: rgba(0, 0, 0, 0.08);
+    --theme-shadow: rgba(0, 0, 0, 0.1);
+    --theme-shadow-hover: rgba(0, 0, 0, 0.15);
+    --theme-navbar-bg: linear-gradient(135deg, rgba(255, 255, 255, 0.85) 0%, rgba(255, 255, 255, 0.65) 100%);
+    --theme-scrollbar-thumb: linear-gradient(180deg, #0dcaf0 0%, #5b62f4 50%, #9d4edd 100%);
+    --theme-typewriter-border: #0dcaf0;
+    --theme-wave-1: rgba(13, 202, 240, 0.1);
+    --theme-wave-2: rgba(91, 98, 244, 0.15);
+    --theme-wave-3: rgba(13, 202, 240, 0.2);
+    --theme-wave-4: rgba(255, 255, 255, 0.3);
+    --theme-footer-bg: #0dcaf0;
+    --theme-social-glow: rgba(13, 202, 240, 0.3);
+}
+
+[data-theme="halloween"] {
+    --theme-primary: #ff6b35;
+    --theme-secondary: #ff9e4d;
+    --theme-accent: #ff3812;
+    --theme-bg: #1a1a2e;
+    --theme-bg-gradient: radial-gradient(ellipse at 78% 0%, rgba(255, 138, 56, 0.16), transparent 48%), radial-gradient(ellipse at 12% 38%, rgba(120, 60, 190, 0.2), transparent 52%), linear-gradient(140deg, #12101f 0%, #1a1a2e 45%, #0f2745 100%);
+    --theme-text: #f0e0d0;
+    --theme-text-muted: #c9b89e;
+    --theme-card-bg: rgba(44, 44, 68, 0.85);
+    --theme-card-border: rgba(255, 107, 53, 0.3);
+    --theme-shadow: rgba(0, 0, 0, 0.4);
+    --theme-shadow-hover: rgba(255, 107, 53, 0.3);
+    --theme-navbar-bg: linear-gradient(135deg, rgba(26, 26, 46, 0.85) 0%, rgba(22, 33, 60, 0.75) 100%);
+    --theme-scrollbar-thumb: linear-gradient(180deg, #ff6b35 0%, #ff9e4d 50%, #ff3812 100%);
+    --theme-typewriter-border: #ff6b35;
+    --theme-wave-1: rgba(255, 107, 53, 0.15);
+    --theme-wave-2: rgba(255, 158, 77, 0.2);
+    --theme-wave-3: rgba(255, 56, 18, 0.25);
+    --theme-wave-4: rgba(255, 255, 255, 0.05);
+    --theme-footer-bg: #ff6b35;
+    --theme-social-glow: rgba(255, 107, 53, 0.5);
+}
+
+[data-theme="autumn"] {
+    --theme-primary: #d35400;
+    --theme-secondary: #e67e22;
+    --theme-accent: #f39c12;
+    --theme-bg: #fdf6e3;
+    --theme-bg-gradient: radial-gradient(ellipse at 88% 0%, rgba(243, 156, 18, 0.22), transparent 50%), radial-gradient(ellipse at 8% 55%, rgba(192, 57, 43, 0.09), transparent 55%), linear-gradient(135deg, #fdf6e3 0%, #f5e6d2 50%, #ffe8d1 100%);
+    --theme-text: #4e3412;
+    --theme-text-muted: #8d6e64;
+    --theme-card-bg: rgba(253, 246, 227, 0.95);
+    --theme-card-border: rgba(211, 84, 0, 0.2);
+    --theme-shadow: rgba(139, 69, 19, 0.1);
+    --theme-shadow-hover: rgba(211, 84, 0, 0.2);
+    --theme-navbar-bg: linear-gradient(135deg, rgba(253, 246, 227, 0.85) 0%, rgba(245, 230, 210, 0.75) 100%);
+    --theme-scrollbar-thumb: linear-gradient(180deg, #d35400 0%, #e67e22 50%, #f39c12 100%);
+    --theme-typewriter-border: #d35400;
+    --theme-wave-1: rgba(211, 84, 0, 0.1);
+    --theme-wave-2: rgba(230, 126, 34, 0.15);
+    --theme-wave-3: rgba(243, 156, 18, 0.2);
+    --theme-wave-4: rgba(255, 255, 255, 0.4);
+    --theme-footer-bg: #d35400;
+    --theme-social-glow: rgba(211, 84, 0, 0.4);
+}
+
+[data-theme="winter"] {
+    --theme-primary: #4fc3f7;
+    --theme-secondary: #29b6f6;
+    --theme-accent: #039be5;
+    --theme-bg: #f0f4f8;
+    --theme-bg-gradient: radial-gradient(ellipse at 82% 0%, rgba(255, 255, 255, 0.9), transparent 48%), radial-gradient(ellipse at 10% 65%, rgba(129, 212, 250, 0.22), transparent 55%), linear-gradient(135deg, #f8fbff 0%, #e6eff8 50%, #d9e6f4 100%);
+    --theme-text: #1a2332;
+    --theme-text-muted: #5a677f;
+    --theme-card-bg: rgba(240, 244, 248, 0.95);
+    --theme-card-border: rgba(79, 195, 247, 0.2);
+    --theme-shadow: rgba(0, 0, 0, 0.05);
+    --theme-shadow-hover: rgba(79, 195, 247, 0.15);
+    --theme-navbar-bg: linear-gradient(135deg, rgba(240, 244, 248, 0.85) 0%, rgba(225, 232, 243, 0.75) 100%);
+    --theme-scrollbar-thumb: linear-gradient(180deg, #4fc3f7 0%, #29b6f6 50%, #039be5 100%);
+    --theme-typewriter-border: #4fc3f7;
+    --theme-wave-1: rgba(79, 195, 247, 0.1);
+    --theme-wave-2: rgba(41, 182, 246, 0.15);
+    --theme-wave-3: rgba(3, 155, 229, 0.2);
+    --theme-wave-4: rgba(255, 255, 255, 0.5);
+    --theme-footer-bg: #4fc3f7;
+    --theme-social-glow: rgba(79, 195, 247, 0.4);
+}
+
+[data-theme="spring"] {
+    --theme-primary: #4caf50;
+    --theme-secondary: #66bb6a;
+    --theme-accent: #81c784;
+    --theme-bg: #f1f8e9;
+    --theme-bg-gradient: radial-gradient(ellipse at 86% 0%, rgba(248, 187, 208, 0.35), transparent 50%), radial-gradient(ellipse at 8% 70%, rgba(129, 199, 132, 0.2), transparent 55%), linear-gradient(135deg, #f7fbef 0%, #e8f5e9 50%, #d5ecd8 100%);
+    --theme-text: #1b5e20;
+    --theme-text-muted: #558b2f;
+    --theme-card-bg: rgba(241, 248, 233, 0.95);
+    --theme-card-border: rgba(76, 175, 80, 0.2);
+    --theme-shadow: rgba(27, 94, 32, 0.1);
+    --theme-shadow-hover: rgba(76, 175, 80, 0.2);
+    --theme-navbar-bg: linear-gradient(135deg, rgba(241, 248, 233, 0.85) 0%, rgba(232, 245, 233, 0.75) 100%);
+    --theme-scrollbar-thumb: linear-gradient(180deg, #4caf50 0%, #66bb6a 50%, #81c784 100%);
+    --theme-typewriter-border: #4caf50;
+    --theme-wave-1: rgba(76, 175, 80, 0.1);
+    --theme-wave-2: rgba(102, 187, 106, 0.15);
+    --theme-wave-3: rgba(129, 199, 132, 0.2);
+    --theme-wave-4: rgba(255, 255, 255, 0.3);
+    --theme-footer-bg: #4caf50;
+    --theme-social-glow: rgba(76, 175, 80, 0.4);
+}
+
+[data-theme="summer"] {
+    --theme-primary: #ff9800;
+    --theme-secondary: #ffb74d;
+    --theme-accent: #ffcc80;
+    --theme-bg: #fff8e1;
+    --theme-bg-gradient: radial-gradient(ellipse at 82% 0%, rgba(255, 213, 79, 0.45), transparent 55%), radial-gradient(ellipse at 12% 70%, rgba(255, 152, 0, 0.12), transparent 55%), linear-gradient(135deg, #fffdf3 0%, #fff3e0 50%, #ffe9ad 100%);
+    --theme-text: #e65100;
+    --theme-text-muted: #ff8f00;
+    --theme-card-bg: rgba(255, 248, 225, 0.95);
+    --theme-card-border: rgba(255, 152, 0, 0.2);
+    --theme-shadow: rgba(255, 152, 0, 0.1);
+    --theme-shadow-hover: rgba(255, 152, 0, 0.2);
+    --theme-navbar-bg: linear-gradient(135deg, rgba(255, 248, 225, 0.85) 0%, rgba(255, 243, 224, 0.75) 100%);
+    --theme-scrollbar-thumb: linear-gradient(180deg, #ff9800 0%, #ffb74d 50%, #ffcc80 100%);
+    --theme-typewriter-border: #ff9800;
+    --theme-wave-1: rgba(255, 152, 0, 0.1);
+    --theme-wave-2: rgba(255, 183, 77, 0.15);
+    --theme-wave-3: rgba(255, 204, 128, 0.2);
+    --theme-wave-4: rgba(255, 255, 255, 0.3);
+    --theme-footer-bg: #ff9800;
+    --theme-social-glow: rgba(255, 152, 0, 0.4);
+}
+
+.theme-select {
+    flex-shrink: 0;
+    width: 140px;
+    padding: 4px 10px;
+    border-radius: 6px;
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    background: linear-gradient(135deg, #f8f9fa, #e9ecef);
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: #333;
+    outline: none;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+.theme-select:hover {
+    background: linear-gradient(135deg, #e9ecef, #dee2e6);
+    border-color: rgba(13, 202, 240, 0.4);
+    transform: translateY(-1px);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+.theme-select:focus {
+    border-color: var(--theme-primary);
+    box-shadow: 0 0 0 2px rgba(13, 202, 240, 0.25);
+}
+.dark-theme .theme-select {
+    background: linear-gradient(135deg, #3a3a3a, #4a4a4a);
+    color: #ccc;
+    border-color: rgba(255, 255, 255, 0.15);
+}
+.dark-theme .theme-select:hover { border-color: rgba(13, 202, 240, 0.4); }
+
+/* Theme-specific backgrounds and components */
+[data-theme="halloween"] body { background: var(--theme-bg-gradient); }
+[data-theme="autumn"] body { background: var(--theme-bg-gradient); }
+[data-theme="winter"] body { background: var(--theme-bg-gradient); }
+[data-theme="spring"] body { background: var(--theme-bg-gradient); }
+[data-theme="summer"] body { background: var(--theme-bg-gradient); }
+
+[data-theme="halloween"] .hero-section,
+[data-theme="autumn"] .hero-section,
+[data-theme="winter"] .hero-section,
+[data-theme="spring"] .hero-section,
+[data-theme="summer"] .hero-section { background: var(--theme-bg-gradient); }
+
+[data-theme="halloween"] .hero-bottom-fade { background: linear-gradient(to top, var(--theme-bg) 0%, transparent 100%); }
+[data-theme="autumn"] .hero-bottom-fade { background: linear-gradient(to top, var(--theme-bg) 0%, transparent 100%); }
+[data-theme="winter"] .hero-bottom-fade { background: linear-gradient(to top, var(--theme-bg) 0%, transparent 100%); }
+[data-theme="spring"] .hero-bottom-fade { background: linear-gradient(to top, var(--theme-bg) 0%, transparent 100%); }
+[data-theme="summer"] .hero-bottom-fade { background: linear-gradient(to top, var(--theme-bg) 0%, transparent 100%); }
+
+/* ===== THEME OVERRIDES FOR KEY ELEMENTS ===== */
+
+/* Navbar */
+[data-theme="halloween"] .navbar,
+[data-theme="autumn"] .navbar,
+[data-theme="winter"] .navbar,
+[data-theme="spring"] .navbar,
+[data-theme="summer"] .navbar { background: var(--theme-navbar-bg) !important; }
+
+[data-theme="halloween"] .navbar.scrolled,
+[data-theme="autumn"] .navbar.scrolled,
+[data-theme="winter"] .navbar.scrolled,
+[data-theme="spring"] .navbar.scrolled,
+[data-theme="summer"] .navbar.scrolled { background: var(--theme-navbar-bg) !important; }
+
+/* Footer */
+[data-theme="halloween"] footer,
+[data-theme="autumn"] footer,
+[data-theme="winter"] footer,
+[data-theme="spring"] footer,
+[data-theme="summer"] footer { background: var(--theme-footer-bg) !important; }
+
+/* Scrollbar */
+[data-theme="halloween"] ::-webkit-scrollbar-thumb,
+[data-theme="autumn"] ::-webkit-scrollbar-thumb,
+[data-theme="winter"] ::-webkit-scrollbar-thumb,
+[data-theme="spring"] ::-webkit-scrollbar-thumb,
+[data-theme="summer"] ::-webkit-scrollbar-thumb { background: var(--theme-scrollbar-thumb) !important; }
+
+[data-theme="halloween"] ::-webkit-scrollbar-track,
+[data-theme="autumn"] ::-webkit-scrollbar-track,
+[data-theme="winter"] ::-webkit-scrollbar-track,
+[data-theme="spring"] ::-webkit-scrollbar-track,
+[data-theme="summer"] ::-webkit-scrollbar-track { background: var(--theme-bg) !important; }
+
+/* Hero waves */
+[data-theme="winter"] .hero-waves .waves use:nth-child(1) { fill: rgba(79, 195, 247, 0.15) !important; }
+[data-theme="winter"] .hero-waves .waves use:nth-child(2) { fill: rgba(41, 182, 246, 0.2) !important; }
+[data-theme="winter"] .hero-waves .waves use:nth-child(3) { fill: rgba(3, 155, 229, 0.25) !important; }
+[data-theme="winter"] .hero-waves .waves use:nth-child(4) { fill: rgba(255, 255, 255, 0.5) !important; }
+
+/* Divider borders */
+[data-theme="halloween"] .divider,
+[data-theme="autumn"] .divider,
+[data-theme="winter"] .divider,
+[data-theme="spring"] .divider,
+[data-theme="summer"] .divider { border-bottom-color: var(--theme-card-border) !important; }
+
+/* Progress bars */
+[data-theme="halloween"] .progress-bar.bg-info,
+[data-theme="autumn"] .progress-bar.bg-info,
+[data-theme="winter"] .progress-bar.bg-info,
+[data-theme="spring"] .progress-bar.bg-info,
+[data-theme="summer"] .progress-bar.bg-info { background: linear-gradient(45deg, var(--theme-primary), var(--theme-secondary)) !important; }
+
+/* Hero buttons */
+[data-theme="halloween"] #hero .btn-outline-info,
+[data-theme="autumn"] #hero .btn-outline-info,
+[data-theme="winter"] #hero .btn-outline-info,
+[data-theme="spring"] #hero .btn-outline-info,
+[data-theme="summer"] #hero .btn-outline-info { border-color: var(--theme-primary) !important; color: var(--theme-primary) !important; }
+
+[data-theme="halloween"] #hero .btn-info,
+[data-theme="autumn"] #hero .btn-info,
+[data-theme="winter"] #hero .btn-info,
+[data-theme="spring"] #hero .btn-info,
+[data-theme="summer"] #hero .btn-info { background: var(--theme-primary) !important; border-color: var(--theme-primary) !important; }
+
+/* Section title gradient */
+[data-theme="halloween"] .intro-section h1,
+[data-theme="autumn"] .intro-section h1,
+[data-theme="winter"] .intro-section h1,
+[data-theme="spring"] .intro-section h1,
+[data-theme="summer"] .intro-section h1 { background: linear-gradient(-45deg, var(--theme-primary), var(--theme-secondary), var(--theme-accent), var(--theme-primary)) !important; }
+
+/* Card hover effects */
+[data-theme="halloween"] #work .border-hover:hover,
+[data-theme="halloween"] #Models .border-hover:hover,
+[data-theme="halloween"] #services .service:hover,
+[data-theme="autumn"] #work .border-hover:hover,
+[data-theme="autumn"] #Models .border-hover:hover,
+[data-theme="autumn"] #services .service:hover,
+[data-theme="winter"] #work .border-hover:hover,
+[data-theme="winter"] #Models .border-hover:hover,
+[data-theme="winter"] #services .service:hover,
+[data-theme="spring"] #work .border-hover:hover,
+[data-theme="spring"] #Models .border-hover:hover,
+[data-theme="spring"] #services .service:hover,
+[data-theme="summer"] #work .border-hover:hover,
+[data-theme="summer"] #Models .border-hover:hover,
+[data-theme="summer"] #services .service:hover { box-shadow: 0 20px 40px var(--theme-shadow-hover) !important; }
+
+/* Social icon glow */
+[data-theme="halloween"] .social-icon,
+[data-theme="autumn"] .social-icon,
+[data-theme="winter"] .social-icon,
+[data-theme="spring"] .social-icon,
+[data-theme="summer"] .social-icon { box-shadow: 0 8px 25px var(--theme-social-glow), 0 0 0 1px rgba(255, 255, 255, 0.2) !important; }
+
+/* Settings menu */
+[data-theme="halloween"] .settings-menu,
+[data-theme="autumn"] .settings-menu,
+[data-theme="winter"] .settings-menu,
+[data-theme="spring"] .settings-menu,
+[data-theme="summer"] .settings-menu { background: var(--theme-card-bg) !important; }
+
 /* Dark Theme Styles */
 .dark-theme {
     background-color: #1a1a1a;
@@ -1578,7 +1874,7 @@ a {
 
 /* Simple Footer Styling */
 footer {
-    background: #0dcaf0 !important;
+    background: var(--theme-footer-bg) !important;
     position: relative;
     border-top: none;
     box-shadow: none;
@@ -3516,6 +3812,160 @@ html[dir="rtl"] footer .footer-brand {
     font-size: 1.1rem;
 }
 
+/* Icon-only action buttons in settings header */
+.settings-header-actions {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.setting-icon-btn {
+    width: 30px;
+    height: 30px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    border-radius: 8px;
+    border: none;
+    background: transparent;
+    color: #a3a3a3;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background 0.2s ease, color 0.2s ease, transform 0.2s ease;
+}
+
+.setting-icon-btn:hover {
+    background: rgba(220, 53, 69, 0.12);
+    color: #dc3545;
+    transform: translateY(-1px);
+}
+
+.setting-icon-btn:active {
+    transform: translateY(0) scale(0.95);
+}
+
+/* Delete data confirmation panel */
+.clear-data-confirm {
+    margin-top: 4px;
+    padding: 12px;
+    border-radius: 12px;
+    background: rgba(220, 53, 69, 0.07);
+    border: 1px solid rgba(220, 53, 69, 0.25);
+    animation: clearDataIn 0.25s ease;
+}
+
+.clear-data-confirm[hidden] {
+    display: none;
+}
+
+@keyframes clearDataIn {
+    from {
+        opacity: 0;
+        transform: translateY(-6px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.clear-data-message {
+    display: flex;
+    gap: 10px;
+    align-items: flex-start;
+}
+
+.clear-data-message > i {
+    color: #dc3545;
+    font-size: 20px;
+    line-height: 1.2;
+    flex-shrink: 0;
+}
+
+.clear-data-message strong {
+    display: block;
+    font-size: 0.9rem;
+    color: #b02a37;
+    margin-bottom: 2px;
+}
+
+.clear-data-message p {
+    margin: 0;
+    font-size: 0.8rem;
+    line-height: 1.45;
+    color: #6c757d;
+}
+
+.clear-data-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 8px;
+    margin-top: 10px;
+}
+
+.clear-cancel-btn,
+.clear-confirm-btn {
+    padding: 5px 12px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    border-radius: 7px;
+    cursor: pointer;
+    border: 1px solid transparent;
+    transition: all 0.2s ease;
+}
+
+.clear-cancel-btn {
+    background: rgba(0, 0, 0, 0.06);
+    color: #555;
+}
+
+.clear-cancel-btn:hover {
+    background: rgba(0, 0, 0, 0.12);
+}
+
+.clear-confirm-btn {
+    background: #dc3545;
+    color: #fff;
+}
+
+.clear-confirm-btn:hover {
+    background: #b02a37;
+    transform: translateY(-1px);
+}
+
+/* Dark theme variants */
+.dark-theme .setting-icon-btn {
+    color: #9aa0a6;
+}
+
+.dark-theme .setting-icon-btn:hover {
+    background: rgba(255, 99, 112, 0.15);
+    color: #ff6b7a;
+}
+
+.dark-theme .clear-data-confirm {
+    background: rgba(220, 53, 69, 0.12);
+    border-color: rgba(255, 99, 112, 0.35);
+}
+
+.dark-theme .clear-data-message strong {
+    color: #ff8a95;
+}
+
+.dark-theme .clear-data-message p {
+    color: #b8b8b8;
+}
+
+.dark-theme .clear-cancel-btn {
+    background: rgba(255, 255, 255, 0.08);
+    color: #ccc;
+}
+
+.dark-theme .clear-cancel-btn:hover {
+    background: rgba(255, 255, 255, 0.16);
+}
+
 .settings-close {
     background: none;
     border: none;
@@ -3787,4 +4237,1675 @@ html[dir="rtl"] footer .footer-brand {
         opacity: 1 !important;
     }
 }
+
+/* =========================================================
+   SEASONAL THEME EFFECTS LAYER
+   ========================================================= */
+
+.theme-effects {
+    position: fixed;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    pointer-events: none;
+    z-index: 996;
+    contain: layout paint;
+}
+
+.theme-effects.fx-halloween::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+        radial-gradient(ellipse at 78% 10%, rgba(255, 148, 64, 0.14), transparent 42%),
+        radial-gradient(ellipse at 50% 105%, rgba(126, 69, 190, 0.18), transparent 58%);
+}
+
+.theme-effects.fx-autumn::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse at 85% 0%, rgba(243, 156, 18, 0.08), transparent 45%);
+}
+
+.theme-effects.fx-winter::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse at 75% 0%, rgba(79, 195, 247, 0.1), transparent 50%);
+}
+
+.theme-effects.fx-spring::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse at 15% 100%, rgba(240, 98, 146, 0.07), transparent 50%);
+}
+
+.theme-effects.fx-summer::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse at 80% 8%, rgba(255, 193, 7, 0.12), transparent 48%);
+}
+
+/* Base particle */
+.fx-particle {
+    position: absolute;
+    top: -12vh;
+    left: var(--x, 50%);
+    width: var(--size, 14px);
+    height: var(--size, 14px);
+    opacity: 0;
+    animation-duration: var(--dur, 12s);
+    animation-delay: var(--delay, 0s);
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+    animation-fill-mode: both;
+    will-change: transform, opacity;
+}
+
+/* ---------- Autumn leaves ---------- */
+.fx-leaf {
+    background: linear-gradient(135deg, var(--color-a, #d35400), var(--color-b, #f39c12));
+    border-radius: 72% 8% 68% 12%;
+    box-shadow: 0 1px 4px rgba(90, 45, 0, 0.22);
+    animation-name: fxLeafFall;
+}
+
+.fx-leaf::after {
+    content: '';
+    position: absolute;
+    left: 50%;
+    top: 9%;
+    width: 1px;
+    height: 82%;
+    background: rgba(96, 52, 8, 0.35);
+    border-radius: 1px;
+    transform: translateX(-50%) rotate(9deg);
+}
+
+@keyframes fxLeafFall {
+    0% {
+        transform: translate3d(0, -12vh, 0) rotate(0deg);
+        opacity: 0;
+    }
+    6% {
+        opacity: var(--op, 0.8);
+    }
+    25% {
+        transform: translate3d(calc(var(--drift) * 0.35), 20vh, 0) rotate(130deg);
+    }
+    50% {
+        transform: translate3d(calc(var(--drift) * -0.25), 48vh, 0) rotate(250deg);
+    }
+    75% {
+        transform: translate3d(calc(var(--drift) * 0.55), 78vh, 0) rotate(340deg);
+        opacity: var(--op, 0.8);
+    }
+    100% {
+        transform: translate3d(calc(var(--drift) * -0.15), 112vh, 0) rotate(450deg);
+        opacity: 0;
+    }
+}
+
+/* ---------- Winter snow ---------- */
+.fx-snow {
+    width: auto;
+    height: auto;
+    font-size: var(--size, 14px);
+    line-height: 1;
+    color: var(--color-a, #ffffff);
+    text-shadow: 0 0 8px var(--glow, rgba(79, 195, 247, 0.6)), 0 0 18px var(--glow, rgba(79, 195, 247, 0.4));
+    animation-name: fxSnowFall;
+}
+
+@keyframes fxSnowFall {
+    0% {
+        transform: translate3d(0, -10vh, 0) rotate(0deg);
+        opacity: 0;
+    }
+    7% {
+        opacity: var(--op, 0.75);
+    }
+    30% {
+        transform: translate3d(calc(var(--drift) * 0.4), 25vh, 0) rotate(90deg);
+    }
+    60% {
+        transform: translate3d(calc(var(--drift) * -0.35), 58vh, 0) rotate(180deg);
+    }
+    85% {
+        opacity: var(--op, 0.75);
+    }
+    100% {
+        transform: translate3d(calc(var(--drift) * 0.2), 110vh, 0) rotate(270deg);
+        opacity: 0;
+    }
+}
+
+/* ---------- Spring petals ---------- */
+.fx-petal {
+    background: linear-gradient(135deg, var(--color-a, #f8bbd0), var(--color-b, #f06292));
+    border-radius: 100% 8% 100% 8%;
+    box-shadow: 0 1px 5px rgba(185, 76, 112, 0.2);
+    animation-name: fxPetalFall;
+}
+
+@keyframes fxPetalFall {
+    0% {
+        transform: translate3d(0, -12vh, 0) rotate(0deg);
+        opacity: 0;
+    }
+    8% {
+        opacity: var(--op, 0.8);
+    }
+    30% {
+        transform: translate3d(calc(var(--drift) * 0.45), 24vh, 0) rotate(150deg);
+    }
+    55% {
+        transform: translate3d(calc(var(--drift) * -0.3), 52vh, 0) rotate(280deg);
+    }
+    80% {
+        opacity: var(--op, 0.8);
+    }
+    100% {
+        transform: translate3d(calc(var(--drift) * 0.3), 110vh, 0) rotate(430deg);
+        opacity: 0;
+    }
+}
+
+/* ---------- Summer sparkles ---------- */
+.fx-spark {
+    border-radius: 50%;
+    background: radial-gradient(circle, #ffffff 0%, #ffe082 42%, rgba(255, 193, 7, 0) 72%);
+    box-shadow: 0 0 10px var(--glow, rgba(255, 193, 7, 0.8)), 0 0 22px var(--glow, rgba(255, 193, 7, 0.5));
+    animation-name: fxSparkFloat;
+}
+
+@keyframes fxSparkFloat {
+    0% {
+        transform: translate3d(0, 106vh, 0) scale(0.35);
+        opacity: 0;
+    }
+    12% {
+        opacity: var(--op, 0.6);
+    }
+    50% {
+        transform: translate3d(var(--drift), 48vh, 0) scale(1);
+    }
+    88% {
+        opacity: var(--op, 0.6);
+    }
+    100% {
+        transform: translate3d(calc(var(--drift) * -0.6), -10vh, 0) scale(0.35);
+        opacity: 0;
+    }
+}
+
+/* ---------- Halloween animated moon ---------- */
+.fx-moon {
+    position: absolute;
+    top: 13vh;
+    right: 7vw;
+    width: clamp(76px, 9vw, 132px);
+    aspect-ratio: 1;
+    border-radius: 50%;
+    background:
+        radial-gradient(circle at 35% 38%, rgba(163, 122, 58, 0.34) 0 7%, transparent 8%),
+        radial-gradient(circle at 62% 28%, rgba(163, 122, 58, 0.28) 0 5.5%, transparent 6.5%),
+        radial-gradient(circle at 58% 62%, rgba(163, 122, 58, 0.24) 0 9%, transparent 10%),
+        radial-gradient(circle at 28% 64%, rgba(163, 122, 58, 0.2) 0 4%, transparent 5%),
+        radial-gradient(circle at 40% 50%, #fffbe8 0%, #fff1bd 42%, #f8d98c 70%, #eab95f 100%);
+    box-shadow:
+        0 0 30px rgba(255, 226, 154, 0.55),
+        0 0 80px rgba(255, 196, 94, 0.35),
+        0 0 160px rgba(255, 170, 60, 0.2);
+    opacity: 0.92;
+    animation: fxMoonFloat 9s ease-in-out infinite alternate, fxMoonGlow 6s ease-in-out infinite alternate;
+}
+
+@keyframes fxMoonFloat {
+    from {
+        transform: translateY(-7px);
+    }
+    to {
+        transform: translateY(9px);
+    }
+}
+
+@keyframes fxMoonGlow {
+    from {
+        box-shadow:
+            0 0 24px rgba(255, 226, 154, 0.45),
+            0 0 65px rgba(255, 196, 94, 0.28),
+            0 0 130px rgba(255, 170, 60, 0.16);
+    }
+    to {
+        box-shadow:
+            0 0 36px rgba(255, 226, 154, 0.65),
+            0 0 100px rgba(255, 196, 94, 0.42),
+            0 0 190px rgba(255, 170, 60, 0.26);
+    }
+}
+
+/* ---------- Halloween bats ---------- */
+.fx-bat {
+    position: absolute;
+    top: var(--top, 16vh);
+    left: -20vw;
+    width: var(--size, 48px);
+    color: #0d0b16;
+    filter: drop-shadow(0 0 6px rgba(255, 150, 60, 0.45));
+    opacity: 0;
+    animation: fxBatFly var(--dur, 24s) linear infinite;
+    animation-delay: var(--delay, 0s);
+    will-change: transform, opacity;
+}
+
+.fx-bat svg {
+    display: block;
+    width: 100%;
+    height: auto;
+    fill: currentColor;
+    overflow: visible;
+}
+
+.fx-bat .bat-wing {
+    transform-box: fill-box;
+    animation: fxWingFlap 0.45s ease-in-out infinite alternate;
+}
+
+.fx-bat .bat-wing-left {
+    transform-origin: 100% 60%;
+}
+
+.fx-bat .bat-wing-right {
+    transform-origin: 0% 60%;
+}
+
+@keyframes fxWingFlap {
+    from {
+        transform: rotate(0deg) scaleY(1);
+    }
+    to {
+        transform: rotate(6deg) scaleY(0.68);
+    }
+}
+
+@keyframes fxBatFly {
+    0% {
+        transform: translate3d(0, 0, 0);
+        opacity: 0;
+    }
+    8% {
+        opacity: 0.92;
+    }
+    30% {
+        transform: translate3d(40vw, var(--rise, 0px), 0);
+    }
+    60% {
+        transform: translate3d(76vw, calc(var(--rise, 0px) * -0.7), 0);
+    }
+    92% {
+        opacity: 0.92;
+    }
+    100% {
+        transform: translate3d(145vw, calc(var(--rise, 0px) * 0.3), 0);
+        opacity: 0;
+    }
+}
+
+/* ---------- Halloween fog ---------- */
+.fx-fog {
+    position: absolute;
+    left: -20%;
+    right: -20%;
+    bottom: -6vh;
+    height: 38vh;
+    background:
+        radial-gradient(ellipse at 18% 62%, rgba(196, 186, 255, 0.2), transparent 62%),
+        radial-gradient(ellipse at 55% 72%, rgba(255, 180, 120, 0.13), transparent 65%),
+        radial-gradient(ellipse at 85% 55%, rgba(176, 202, 255, 0.17), transparent 62%);
+    filter: blur(18px);
+    opacity: 0.55;
+    animation: fxFogDrift 18s ease-in-out infinite alternate;
+}
+
+@keyframes fxFogDrift {
+    from {
+        transform: translate3d(-4%, 0, 0) scale(1);
+    }
+    to {
+        transform: translate3d(4%, -1.5%, 0) scale(1.08);
+    }
+}
+
+/* ---------- Summer sun ---------- */
+.fx-sun {
+    position: absolute;
+    top: 11vh;
+    right: 8vw;
+    width: clamp(90px, 12vw, 172px);
+    aspect-ratio: 1;
+    border-radius: 50%;
+    background: radial-gradient(circle, #fffde7 0%, #fff59d 30%, #ffd54f 58%, rgba(255, 193, 7, 0.25) 74%, transparent 82%);
+    box-shadow:
+        0 0 40px rgba(255, 213, 79, 0.5),
+        0 0 100px rgba(255, 179, 0, 0.32),
+        0 0 180px rgba(255, 145, 0, 0.18);
+    opacity: 0.5;
+    animation: fxSunPulse 7s ease-in-out infinite alternate, fxSunFloat 11s ease-in-out infinite alternate;
+}
+
+@keyframes fxSunPulse {
+    from {
+        transform: scale(0.94);
+        opacity: 0.38;
+    }
+    to {
+        transform: scale(1.06);
+        opacity: 0.58;
+    }
+}
+
+@keyframes fxSunFloat {
+    from {
+        translate: 0 -10px;
+    }
+    to {
+        translate: 0 12px;
+    }
+}
+
+/* Hide effects entirely when animations are off */
+.no-animations .theme-effects {
+    display: none !important;
+}
+
+@media (max-width: 768px) {
+    .fx-moon {
+        top: 15vh;
+        right: 5vw;
+        width: 74px;
+    }
+
+    .fx-sun {
+        top: 14vh;
+        right: 5vw;
+        width: 92px;
+    }
+
+    .fx-fog {
+        height: 28vh;
+        filter: blur(14px);
+    }
+}
+
+@media (max-width: 576px) {
+    .fx-particle:nth-child(n + 25) {
+        display: none;
+    }
+
+    .fx-bat {
+        filter: drop-shadow(0 0 4px rgba(255, 150, 60, 0.35));
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .theme-effects {
+        display: none !important;
+    }
+}
+
+/* =========================================================
+   SEASONAL THEME POLISH - TOKENS
+   ========================================================= */
+
+:root {
+    --theme-nav-text: #495057;
+    --theme-brand-bg: linear-gradient(135deg, rgba(13, 202, 240, 0.12), rgba(91, 98, 244, 0.06));
+    --theme-brand-border: rgba(13, 202, 240, 0.25);
+    --theme-icon-bg: linear-gradient(135deg, rgba(13, 202, 240, 0.22), rgba(91, 98, 244, 0.22));
+    --theme-icon-fg: #0b9fc4;
+    --theme-icon-border: rgba(13, 202, 240, 0.35);
+    --theme-icon-glow: rgba(13, 202, 240, 0.28);
+    --theme-badge-bg: rgba(13, 202, 240, 0.12);
+    --theme-badge-fg: #086d85;
+    --theme-badge-border: rgba(13, 202, 240, 0.28);
+    --theme-on-primary: #ffffff;
+    --season-icon: "✨";
+}
+
+[data-theme="halloween"] {
+    --theme-nav-text: #ecdccb;
+    --theme-brand-bg: linear-gradient(135deg, rgba(255, 107, 53, 0.18), rgba(157, 78, 221, 0.12));
+    --theme-brand-border: rgba(255, 107, 53, 0.4);
+    --theme-icon-bg: linear-gradient(135deg, rgba(255, 107, 53, 0.3), rgba(157, 78, 221, 0.26));
+    --theme-icon-fg: #ffb27f;
+    --theme-icon-border: rgba(255, 138, 72, 0.55);
+    --theme-icon-glow: rgba(255, 107, 53, 0.35);
+    --theme-badge-bg: rgba(255, 107, 53, 0.16);
+    --theme-badge-fg: #ffbd94;
+    --theme-badge-border: rgba(255, 138, 72, 0.4);
+    --theme-on-primary: #1a1024;
+    --season-icon: "🎃";
+}
+
+[data-theme="autumn"] {
+    --theme-nav-text: #5b3a1a;
+    --theme-brand-bg: linear-gradient(135deg, rgba(211, 84, 0, 0.12), rgba(243, 156, 18, 0.08));
+    --theme-brand-border: rgba(211, 84, 0, 0.3);
+    --theme-icon-bg: linear-gradient(135deg, rgba(211, 84, 0, 0.2), rgba(243, 156, 18, 0.24));
+    --theme-icon-fg: #b34700;
+    --theme-icon-border: rgba(211, 84, 0, 0.35);
+    --theme-icon-glow: rgba(211, 84, 0, 0.25);
+    --theme-badge-bg: rgba(230, 126, 34, 0.14);
+    --theme-badge-fg: #8a3b00;
+    --theme-badge-border: rgba(211, 84, 0, 0.28);
+    --theme-on-primary: #ffffff;
+    --season-icon: "🍂";
+}
+
+[data-theme="winter"] {
+    --theme-nav-text: #25435a;
+    --theme-brand-bg: linear-gradient(135deg, rgba(79, 195, 247, 0.18), rgba(255, 255, 255, 0.4));
+    --theme-brand-border: rgba(79, 195, 247, 0.4);
+    --theme-icon-bg: linear-gradient(135deg, rgba(79, 195, 247, 0.3), rgba(224, 247, 250, 0.8));
+    --theme-icon-fg: #0277a8;
+    --theme-icon-border: rgba(79, 195, 247, 0.45);
+    --theme-icon-glow: rgba(79, 195, 247, 0.35);
+    --theme-badge-bg: rgba(79, 195, 247, 0.16);
+    --theme-badge-fg: #075d7f;
+    --theme-badge-border: rgba(79, 195, 247, 0.35);
+    --theme-on-primary: #062a3a;
+    --season-icon: "❄️";
+}
+
+[data-theme="spring"] {
+    --theme-nav-text: #2d5230;
+    --theme-brand-bg: linear-gradient(135deg, rgba(76, 175, 80, 0.14), rgba(248, 187, 208, 0.16));
+    --theme-brand-border: rgba(76, 175, 80, 0.32);
+    --theme-icon-bg: linear-gradient(135deg, rgba(76, 175, 80, 0.22), rgba(248, 187, 208, 0.34));
+    --theme-icon-fg: #2e7d32;
+    --theme-icon-border: rgba(76, 175, 80, 0.4);
+    --theme-icon-glow: rgba(76, 175, 80, 0.28);
+    --theme-badge-bg: rgba(76, 175, 80, 0.14);
+    --theme-badge-fg: #286a2c;
+    --theme-badge-border: rgba(76, 175, 80, 0.3);
+    --theme-on-primary: #ffffff;
+    --season-icon: "🌸";
+}
+
+[data-theme="summer"] {
+    --theme-nav-text: #6b3d00;
+    --theme-brand-bg: linear-gradient(135deg, rgba(255, 152, 0, 0.16), rgba(255, 235, 59, 0.22));
+    --theme-brand-border: rgba(255, 152, 0, 0.35);
+    --theme-icon-bg: linear-gradient(135deg, rgba(255, 152, 0, 0.26), rgba(255, 235, 59, 0.42));
+    --theme-icon-fg: #b35c00;
+    --theme-icon-border: rgba(255, 152, 0, 0.45);
+    --theme-icon-glow: rgba(255, 152, 0, 0.3);
+    --theme-badge-bg: rgba(255, 152, 0, 0.15);
+    --theme-badge-fg: #945000;
+    --theme-badge-border: rgba(255, 152, 0, 0.32);
+    --theme-on-primary: #3a2200;
+    --season-icon: "☀️";
+}
+
+/* =========================================================
+   SEASONAL THEME POLISH - LAYOUT & COMPONENTS
+   ========================================================= */
+
+body[data-theme] {
+    color: var(--theme-text);
+    transition: color 0.35s ease;
+}
+
+body[data-theme] .section-padding {
+    background-color: transparent !important;
+}
+
+body[data-theme] .text-muted,
+body[data-theme] .intro-section p,
+body[data-theme] #hero .hero-subtitle {
+    color: var(--theme-text-muted) !important;
+}
+
+body[data-theme] ::selection {
+    background: var(--theme-primary);
+    color: var(--theme-on-primary);
+}
+
+/* ---------- Hero ---------- */
+body[data-theme] #hero h1,
+body[data-theme] #hero h1 a {
+    color: var(--theme-text) !important;
+}
+
+body[data-theme] #hero h1 {
+    text-shadow: 0 10px 34px var(--theme-shadow);
+}
+
+body[data-theme] #hero .hero-subtitle::before {
+    content: var(--season-icon);
+    margin-right: 8px;
+    -webkit-text-fill-color: initial;
+}
+
+[data-theme="halloween"] #hero h1 {
+    text-shadow:
+        0 0 22px rgba(255, 122, 50, 0.4),
+        0 10px 34px rgba(0, 0, 0, 0.55);
+}
+
+body[data-theme] .hero-bg-pattern {
+    background-image:
+        radial-gradient(circle at 20% 50%, var(--theme-wave-1) 0%, transparent 50%),
+        radial-gradient(circle at 80% 80%, var(--theme-wave-2) 0%, transparent 40%),
+        radial-gradient(circle at 40% 20%, var(--theme-wave-3) 0%, transparent 45%),
+        linear-gradient(135deg, transparent 0%, var(--theme-wave-1) 50%, transparent 100%) !important;
+}
+
+body[data-theme] .hero-bg-pattern::before {
+    border-color: var(--theme-wave-2) !important;
+}
+
+body[data-theme] .hero-bg-pattern::after {
+    border-color: var(--theme-wave-3) !important;
+}
+
+body[data-theme] .hero-waves .waves use:nth-child(1) {
+    fill: var(--theme-wave-1) !important;
+}
+
+body[data-theme] .hero-waves .waves use:nth-child(2) {
+    fill: var(--theme-wave-2) !important;
+}
+
+body[data-theme] .hero-waves .waves use:nth-child(3) {
+    fill: var(--theme-wave-3) !important;
+}
+
+body[data-theme] .hero-waves .waves use:nth-child(4) {
+    fill: var(--theme-wave-4) !important;
+}
+
+body[data-theme] .hero-animated {
+    filter: drop-shadow(0 26px 45px var(--theme-shadow));
+}
+
+/* ---------- Navbar ---------- */
+body[data-theme] .navbar .navbar-brand {
+    background: var(--theme-brand-bg) !important;
+    border-color: var(--theme-brand-border) !important;
+    box-shadow: 0 6px 20px transparent;
+}
+
+body[data-theme] .navbar .navbar-brand:hover {
+    background: var(--theme-brand-bg) !important;
+    border-color: var(--theme-primary) !important;
+    box-shadow: 0 8px 25px var(--theme-icon-glow) !important;
+}
+
+body[data-theme] .navbar .navbar-brand h4 {
+    background: linear-gradient(135deg, var(--theme-primary), var(--theme-secondary), var(--theme-accent)) !important;
+    -webkit-background-clip: text !important;
+    background-clip: text !important;
+    -webkit-text-fill-color: transparent !important;
+}
+
+body[data-theme] .navbar .navbar-nav .nav-link {
+    color: var(--theme-nav-text) !important;
+}
+
+body[data-theme] .navbar .navbar-nav .nav-link:hover,
+body[data-theme] .navbar .navbar-nav .nav-link.active {
+    color: var(--theme-primary) !important;
+    background: var(--theme-brand-bg) !important;
+    border-color: var(--theme-brand-border) !important;
+    box-shadow: 0 4px 15px var(--theme-icon-glow) !important;
+}
+
+body[data-theme] .navbar .navbar-nav .nav-link::before {
+    background: linear-gradient(90deg, var(--theme-primary), var(--theme-secondary)) !important;
+}
+
+body[data-theme] .navbar .navbar-toggler {
+    color: var(--theme-nav-text);
+    border-color: var(--theme-brand-border) !important;
+}
+
+body[data-theme] .navbar .navbar-toggler:hover {
+    background: var(--theme-brand-bg) !important;
+    border-color: var(--theme-primary) !important;
+}
+
+body[data-theme] .navbar .navbar-collapse {
+    border: none;
+}
+
+@media (max-width: 992px) {
+    body[data-theme] .navbar .navbar-collapse {
+        background: var(--theme-card-bg) !important;
+        border: 1px solid var(--theme-card-border);
+    }
+}
+
+/* ---------- Section headings ---------- */
+body[data-theme] .intro-section h1 {
+    background: linear-gradient(-45deg, var(--theme-primary), var(--theme-secondary), var(--theme-accent), var(--theme-primary)) !important;
+    background-size: 400% 400% !important;
+    -webkit-background-clip: text !important;
+    background-clip: text !important;
+    -webkit-text-fill-color: transparent !important;
+}
+
+body[data-theme] .intro-section h1::before {
+    content: var(--season-icon);
+    display: inline-block;
+    margin-right: 0.32em;
+    font-size: 0.78em;
+    color: var(--theme-primary);
+    -webkit-text-fill-color: var(--theme-primary);
+    background: none;
+    filter: drop-shadow(0 3px 8px var(--theme-shadow-hover));
+    animation: fxHeadingIcon 4s ease-in-out infinite;
+    transform-origin: 50% 70%;
+}
+
+body[data-theme] .intro-section h1::after {
+    background: linear-gradient(90deg, transparent, var(--theme-primary), var(--theme-secondary), transparent) !important;
+}
+
+@keyframes fxHeadingIcon {
+
+    0%,
+    100% {
+        transform: translateY(0) rotate(-4deg);
+    }
+
+    50% {
+        transform: translateY(-5px) rotate(4deg);
+    }
+}
+
+/* ---------- Cards ---------- */
+body[data-theme] #services .service,
+body[data-theme] #work .border-hover,
+body[data-theme] #Models .border-hover,
+body[data-theme] #contact .service {
+    background-color: var(--theme-card-bg) !important;
+    border: 1px solid var(--theme-card-border) !important;
+    box-shadow:
+        inset 0 4px 0 0 var(--theme-primary),
+        0 16px 36px var(--theme-shadow) !important;
+    color: var(--theme-text);
+}
+
+body[data-theme] #services .service:hover,
+body[data-theme] #work .border-hover:hover,
+body[data-theme] #Models .border-hover:hover,
+body[data-theme] #contact .service:hover {
+    border-color: var(--theme-primary) !important;
+    box-shadow:
+        inset 0 4px 0 0 var(--theme-secondary),
+        0 26px 52px var(--theme-shadow-hover) !important;
+}
+
+body[data-theme] #services .service {
+    border-radius: 24px 8px 24px 8px !important;
+}
+
+body[data-theme="halloween"] #services .service,
+body[data-theme="halloween"] #work .border-hover,
+body[data-theme="halloween"] #Models .border-hover,
+body[data-theme="halloween"] #contact .service {
+    border-radius: 24px 8px 24px 8px !important;
+}
+
+body[data-theme="autumn"] #services .service,
+body[data-theme="autumn"] #work .border-hover,
+body[data-theme="autumn"] #Models .border-hover,
+body[data-theme="autumn"] #contact .service {
+    border-radius: 20px 20px 20px 5px !important;
+}
+
+body[data-theme="winter"] #services .service,
+body[data-theme="winter"] #work .border-hover,
+body[data-theme="winter"] #Models .border-hover,
+body[data-theme="winter"] #contact .service {
+    border-radius: 18px !important;
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+}
+
+body[data-theme="spring"] #services .service,
+body[data-theme="spring"] #work .border-hover,
+body[data-theme="spring"] #Models .border-hover,
+body[data-theme="spring"] #contact .service {
+    border-radius: 26px 10px 26px 10px !important;
+}
+
+body[data-theme="summer"] #services .service,
+body[data-theme="summer"] #work .border-hover,
+body[data-theme="summer"] #Models .border-hover,
+body[data-theme="summer"] #contact .service {
+    border-radius: 26px !important;
+}
+
+body[data-theme] #services .service h5,
+body[data-theme] #work .border-hover h5,
+body[data-theme] #Models .border-hover h5,
+body[data-theme] #contact .service h5 {
+    color: var(--theme-text) !important;
+}
+
+body[data-theme] #services .service:hover h5,
+body[data-theme] #work .border-hover:hover h5,
+body[data-theme] #Models .border-hover:hover h5,
+body[data-theme] #contact .service:hover h5 {
+    color: var(--theme-primary) !important;
+}
+
+body[data-theme] #services .service p,
+body[data-theme] #work .border-hover p,
+body[data-theme] #Models .border-hover p,
+body[data-theme] #contact .service a p,
+body[data-theme] #contact .service p {
+    color: var(--theme-text-muted) !important;
+}
+
+body[data-theme] #contact .service a:hover {
+    color: var(--theme-primary) !important;
+}
+
+body[data-theme] #contact .service::before {
+    background: linear-gradient(135deg, var(--theme-wave-1), var(--theme-wave-2)) !important;
+}
+
+/* Card presentation images */
+body[data-theme] #work .border-hover img,
+body[data-theme] #Models .border-hover img {
+    box-shadow: 0 10px 24px var(--theme-shadow) !important;
+}
+
+/* ---------- Icons ---------- */
+body[data-theme] .service .icon {
+    color: var(--theme-icon-fg) !important;
+    background: var(--theme-icon-bg) !important;
+    border: 2px solid var(--theme-icon-border) !important;
+    border-radius: 22px !important;
+    box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, 0.35),
+        0 10px 24px var(--theme-icon-glow) !important;
+    transition: transform 0.35s ease, box-shadow 0.35s ease, background 0.35s ease;
+}
+
+body[data-theme] .service:hover .icon {
+    transform: translateY(-4px) rotate(-4deg) scale(1.05) !important;
+    box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, 0.45),
+        0 15px 34px var(--theme-icon-glow) !important;
+}
+
+body[data-theme="halloween"] .service .icon {
+    border-radius: 32% 68% 62% 38% / 42% 32% 68% 58% !important;
+}
+
+body[data-theme="autumn"] .service .icon {
+    border-radius: 50% 16% 50% 16% !important;
+}
+
+body[data-theme="winter"] .service .icon {
+    border-radius: 50% !important;
+}
+
+body[data-theme="spring"] .service .icon {
+    border-radius: 58% 42% 55% 45% / 46% 56% 44% 54% !important;
+}
+
+body[data-theme="summer"] .service .icon {
+    border-radius: 50% !important;
+}
+
+/* ---------- Badges ---------- */
+body[data-theme] .badge {
+    background: var(--theme-badge-bg) !important;
+    color: var(--theme-badge-fg) !important;
+    border: 1px solid var(--theme-badge-border) !important;
+    box-shadow: none !important;
+    font-weight: 600;
+    letter-spacing: 0.2px;
+}
+
+/* ---------- Buttons ---------- */
+body[data-theme] .btn-outline-info {
+    border-color: var(--theme-primary) !important;
+    color: var(--theme-primary) !important;
+}
+
+body[data-theme] .btn-outline-info:hover,
+body[data-theme] .btn-outline-info:focus {
+    background: var(--theme-primary) !important;
+    border-color: var(--theme-primary) !important;
+    color: var(--theme-on-primary) !important;
+}
+
+body[data-theme] .btn-info {
+    background: var(--theme-primary) !important;
+    border-color: var(--theme-primary) !important;
+    color: var(--theme-on-primary) !important;
+}
+
+body[data-theme] .btn-info:hover {
+    background: var(--theme-secondary) !important;
+    border-color: var(--theme-secondary) !important;
+    color: var(--theme-on-primary) !important;
+}
+
+/* ---------- Skills / progress ---------- */
+body[data-theme] .skill-progress h6 {
+    color: var(--theme-text) !important;
+}
+
+body[data-theme] .skill-progress h6::after {
+    color: var(--theme-primary) !important;
+    text-shadow: 0 0 8px var(--theme-social-glow);
+}
+
+body[data-theme] .progress {
+    background: var(--theme-badge-bg) !important;
+    box-shadow: inset 0 2px 6px var(--theme-shadow) !important;
+}
+
+body[data-theme] .progress-bar.bg-info {
+    background: linear-gradient(90deg, var(--theme-primary), var(--theme-secondary)) !important;
+}
+
+/* ---------- Dividers ---------- */
+body[data-theme] .divider {
+    border-bottom-color: var(--theme-card-border) !important;
+}
+
+body[data-theme="halloween"] .divider {
+    border-bottom-style: solid !important;
+    border-bottom-color: rgba(255, 107, 53, 0.18) !important;
+}
+
+body[data-theme="winter"] .divider {
+    border-image: linear-gradient(90deg, transparent, var(--theme-primary), var(--theme-secondary), transparent) 1;
+}
+
+/* ---------- Footer ---------- */
+body[data-theme] footer {
+    background-color: var(--theme-footer-bg) !important;
+    background-image:
+        linear-gradient(rgba(0, 0, 0, 0.18), rgba(0, 0, 0, 0.18)),
+        radial-gradient(circle at 20% 25%, rgba(255, 255, 255, 0.16) 0 1.5px, transparent 2px),
+        radial-gradient(circle at 70% 70%, rgba(255, 255, 255, 0.11) 0 1.5px, transparent 2px) !important;
+    background-size: auto, 32px 32px, 44px 44px !important;
+}
+
+body[data-theme] footer,
+body[data-theme] footer .footer-brand,
+body[data-theme] footer .footer-title,
+body[data-theme] footer p {
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.18);
+}
+
+/* ---------- Floating buttons ---------- */
+body[data-theme] .settings-btn {
+    background: linear-gradient(135deg, var(--theme-primary), var(--theme-secondary)) !important;
+    color: var(--theme-on-primary) !important;
+    box-shadow: 0 5px 18px var(--theme-icon-glow) !important;
+}
+
+body[data-theme] .settings-btn:hover {
+    filter: brightness(1.08);
+    box-shadow: 0 9px 26px var(--theme-icon-glow) !important;
+}
+
+body[data-theme] .back-to-top {
+    background: linear-gradient(135deg, var(--theme-primary), var(--theme-secondary)) !important;
+    color: var(--theme-on-primary) !important;
+    border-color: var(--theme-brand-border) !important;
+    box-shadow: 0 6px 20px var(--theme-icon-glow) !important;
+}
+
+body[data-theme] .back-to-top:hover {
+    background: linear-gradient(135deg, var(--theme-secondary), var(--theme-primary)) !important;
+    box-shadow: 0 10px 28px var(--theme-icon-glow) !important;
+}
+
+/* ---------- Settings panel ---------- */
+body[data-theme] .settings-menu {
+    background: var(--theme-card-bg) !important;
+    border-color: var(--theme-card-border) !important;
+    box-shadow: 0 20px 55px var(--theme-shadow) !important;
+}
+
+body[data-theme] .settings-header {
+    border-bottom-color: var(--theme-card-border) !important;
+}
+
+body[data-theme] .settings-header h6 {
+    color: var(--theme-text) !important;
+}
+
+body[data-theme] .settings-header h6::after {
+    content: var(--season-icon);
+    margin-left: 7px;
+    font-size: 0.95rem;
+}
+
+body[data-theme] .settings-close {
+    color: var(--theme-text-muted) !important;
+}
+
+body[data-theme] .settings-close:hover {
+    background: var(--theme-badge-bg) !important;
+    color: var(--theme-text) !important;
+}
+
+body[data-theme] .setting-icon-btn {
+    color: var(--theme-text-muted) !important;
+}
+
+body[data-theme] .setting-icon-btn:hover {
+    background: rgba(220, 53, 69, 0.14) !important;
+    color: #dc3545 !important;
+}
+
+body[data-theme] .setting-label {
+    color: var(--theme-text-muted) !important;
+}
+
+body[data-theme] .setting-divider {
+    background: var(--theme-card-border) !important;
+}
+
+body[data-theme] .theme-select {
+    background: var(--theme-badge-bg) !important;
+    color: var(--theme-text) !important;
+    border-color: var(--theme-card-border) !important;
+}
+
+body[data-theme] .theme-select:focus {
+    border-color: var(--theme-primary) !important;
+    box-shadow: 0 0 0 2px var(--theme-social-glow) !important;
+}
+
+body[data-theme="halloween"] .theme-select {
+    color-scheme: dark;
+}
+
+body[data-theme="halloween"] .theme-select option {
+    background: #252540;
+    color: #f4e5d4;
+}
+
+body[data-theme] .toggle-switch input:checked+.toggle-slider {
+    background-color: var(--theme-primary) !important;
+}
+
+/* =========================================================
+   SEASONAL THEME REALISM & CRAFT UPGRADE
+   ========================================================= */
+
+/* ---------- Per-theme surface tokens ---------- */
+[data-theme="halloween"] {
+    --theme-card-pattern: radial-gradient(circle, rgba(255, 150, 90, 0.1) 0 1px, transparent 1.7px);
+    --theme-card-pattern-size: 24px 24px;
+    --theme-card-sheen: radial-gradient(120% 90% at 16% -10%, rgba(255, 190, 130, 0.13), transparent 58%);
+    --theme-card-hairline: rgba(255, 255, 255, 0.08);
+    --theme-grain-opacity: 0.075;
+}
+
+[data-theme="autumn"] {
+    --theme-card-pattern: radial-gradient(ellipse, rgba(211, 84, 0, 0.09) 0 1.4px, transparent 2.1px);
+    --theme-card-pattern-size: 30px 30px;
+    --theme-card-sheen: radial-gradient(120% 90% at 18% -10%, rgba(255, 255, 255, 0.55), transparent 58%);
+    --theme-card-hairline: rgba(255, 255, 255, 0.5);
+    --theme-grain-opacity: 0.045;
+}
+
+[data-theme="winter"] {
+    --theme-card-pattern: radial-gradient(circle, rgba(79, 195, 247, 0.16) 0 1.2px, transparent 1.8px);
+    --theme-card-pattern-size: 28px 28px;
+    --theme-card-sheen: radial-gradient(120% 90% at 18% -10%, rgba(255, 255, 255, 0.8), transparent 60%);
+    --theme-card-hairline: rgba(255, 255, 255, 0.65);
+    --theme-grain-opacity: 0.035;
+}
+
+[data-theme="spring"] {
+    --theme-card-pattern: radial-gradient(ellipse, rgba(240, 98, 146, 0.1) 0 1.6px, transparent 2.4px);
+    --theme-card-pattern-size: 34px 34px;
+    --theme-card-sheen: radial-gradient(120% 90% at 18% -10%, rgba(255, 255, 255, 0.6), transparent 58%);
+    --theme-card-hairline: rgba(255, 255, 255, 0.5);
+    --theme-grain-opacity: 0.04;
+}
+
+[data-theme="summer"] {
+    --theme-card-pattern: repeating-linear-gradient(115deg, rgba(255, 152, 0, 0.045) 0 1px, transparent 1px 14px);
+    --theme-card-pattern-size: auto;
+    --theme-card-sheen: radial-gradient(120% 90% at 18% -10%, rgba(255, 255, 255, 0.7), transparent 58%);
+    --theme-card-hairline: rgba(255, 255, 255, 0.55);
+    --theme-grain-opacity: 0.04;
+}
+
+/* ---------- Richer atmospheric wash per season ---------- */
+.theme-effects.fx-halloween::before {
+    background:
+        radial-gradient(ellipse at 78% 8%, rgba(255, 150, 62, 0.2), transparent 44%),
+        radial-gradient(ellipse at 16% 88%, rgba(128, 68, 196, 0.19), transparent 54%),
+        radial-gradient(ellipse at 50% 48%, transparent 58%, rgba(4, 2, 12, 0.4) 100%);
+}
+
+.theme-effects.fx-autumn::before {
+    background:
+        radial-gradient(ellipse at 88% 0%, rgba(255, 176, 64, 0.2), transparent 46%),
+        radial-gradient(ellipse at 8% 78%, rgba(192, 57, 43, 0.09), transparent 56%),
+        repeating-linear-gradient(112deg, rgba(255, 219, 160, 0.055) 0 2px, transparent 2px 30px);
+}
+
+.theme-effects.fx-winter::before {
+    background:
+        radial-gradient(ellipse at 74% 0%, rgba(79, 195, 247, 0.17), transparent 48%),
+        radial-gradient(ellipse at 28% 6%, rgba(224, 247, 250, 0.35), transparent 42%),
+        linear-gradient(180deg, rgba(255, 255, 255, 0.18), transparent 28%);
+}
+
+.theme-effects.fx-spring::before {
+    background:
+        radial-gradient(ellipse at 86% 0%, rgba(248, 187, 208, 0.35), transparent 46%),
+        radial-gradient(ellipse at 10% 92%, rgba(129, 199, 132, 0.18), transparent 55%),
+        repeating-linear-gradient(118deg, rgba(255, 255, 255, 0.12) 0 2px, transparent 2px 36px);
+}
+
+.theme-effects.fx-summer::before {
+    background:
+        radial-gradient(ellipse at 80% 5%, rgba(255, 213, 79, 0.26), transparent 52%),
+        radial-gradient(ellipse at 6% 88%, rgba(255, 152, 0, 0.1), transparent 52%),
+        radial-gradient(ellipse at 50% 50%, transparent 62%, rgba(255, 183, 77, 0.12) 100%);
+}
+
+/* Subtle photographic grain over the whole seasonal scene */
+body[data-theme] .theme-effects::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: 20;
+    pointer-events: none;
+    opacity: var(--theme-grain-opacity, 0.04);
+    mix-blend-mode: soft-light;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160' viewBox='0 0 160 160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)' opacity='0.55'/%3E%3C/svg%3E");
+    background-size: 160px 160px;
+}
+
+/* ---------- Autumn leaves: real silhouettes, veins and depth ---------- */
+.fx-leaf {
+    border-radius: 0;
+    background:
+        radial-gradient(ellipse at 30% 22%, rgba(255, 255, 255, 0.4), transparent 48%),
+        radial-gradient(ellipse at 72% 84%, rgba(76, 30, 0, 0.24), transparent 62%),
+        linear-gradient(135deg, var(--color-a, #d35400) 0%, var(--color-b, #f39c12) 62%, var(--color-a, #d35400) 100%);
+    filter: blur(var(--blur, 0px)) drop-shadow(0 3px 3px rgba(66, 28, 0, 0.3));
+    animation-name: fxLeafFall;
+}
+
+.fx-leaf::after {
+    left: 50%;
+    top: 10%;
+    width: max(1px, calc(var(--size, 14px) * 0.035));
+    height: 78%;
+    background: linear-gradient(180deg, rgba(255, 245, 215, 0.35), rgba(84, 38, 4, 0.45));
+    border-radius: 2px;
+    transform: translateX(-50%) rotate(7deg);
+    opacity: 0.7;
+}
+
+.fx-leaf.leaf-maple {
+    clip-path: polygon(50% 0%, 56% 16%, 70% 10%, 66% 24%, 84% 23%, 73% 37%, 93% 45%, 71% 51%, 78% 68%, 59% 61%, 55% 82%, 50% 74%, 45% 82%, 41% 61%, 22% 68%, 29% 51%, 7% 45%, 27% 37%, 16% 23%, 34% 24%, 30% 10%, 44% 16%);
+}
+
+.fx-leaf.leaf-oak {
+    clip-path: polygon(50% 0%, 60% 12%, 55% 20%, 70% 24%, 65% 37%, 83% 41%, 71% 53%, 88% 63%, 68% 69%, 64% 86%, 50% 78%, 36% 86%, 32% 69%, 12% 63%, 29% 53%, 17% 41%, 35% 37%, 30% 24%, 45% 20%, 40% 12%);
+}
+
+.fx-leaf.leaf-birch {
+    clip-path: polygon(50% 0%, 58% 10%, 66% 24%, 72% 42%, 66% 62%, 58% 78%, 50% 100%, 42% 78%, 34% 62%, 28% 42%, 34% 24%, 42% 10%);
+}
+
+.fx-leaf.leaf-elm {
+    clip-path: polygon(50% 0%, 62% 14%, 73% 32%, 74% 55%, 63% 78%, 50% 100%, 38% 82%, 28% 60%, 27% 35%, 38% 16%);
+}
+
+/* ---------- Spring petals: layered translucency and curls ---------- */
+.fx-petal {
+    background:
+        radial-gradient(ellipse at 32% 24%, rgba(255, 255, 255, 0.65), transparent 48%),
+        radial-gradient(ellipse at 68% 78%, rgba(194, 24, 91, 0.2), transparent 60%),
+        linear-gradient(140deg, var(--color-a, #f8bbd0), var(--color-b, #f06292));
+    filter: blur(var(--blur, 0px)) drop-shadow(0 3px 4px rgba(160, 50, 90, 0.24));
+    animation-name: fxPetalFall;
+}
+
+.fx-petal::after {
+    content: '';
+    position: absolute;
+    inset: 16% 26% 52% 22%;
+    border-radius: 50%;
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.5), transparent);
+    filter: blur(1px);
+}
+
+.fx-petal.petal-round {
+    border-radius: 55% 45% 58% 42% / 62% 62% 38% 38%;
+}
+
+.fx-petal.petal-slim {
+    border-radius: 78% 22% 78% 22% / 64% 36% 64% 36%;
+}
+
+.fx-petal.petal-heart {
+    border-radius: 0;
+    clip-path: polygon(50% 0%, 78% 18%, 90% 44%, 70% 74%, 50% 100%, 30% 74%, 10% 44%, 22% 18%);
+}
+
+/* ---------- Winter snow: soft depth dots + crystal glyphs ---------- */
+.fx-snow {
+    filter: blur(var(--blur, 0px)) drop-shadow(0 0 5px rgba(255, 255, 255, 0.55));
+}
+
+.fx-snow-dot {
+    border-radius: 50%;
+    background: radial-gradient(circle at 32% 30%, #ffffff 0 20%, #e1f5fe 46%, rgba(129, 212, 250, 0.55) 72%, rgba(129, 212, 250, 0) 100%);
+    box-shadow: 0 0 6px rgba(255, 255, 255, 0.75), 0 0 14px rgba(79, 195, 247, 0.35);
+    filter: blur(var(--blur, 0px));
+    animation-name: fxSnowFall;
+}
+
+.fx-frost {
+    border-radius: 50%;
+    background: radial-gradient(circle, #ffffff 0 26%, #b3e5fc 62%, rgba(179, 229, 252, 0) 100%);
+    box-shadow: 0 0 7px rgba(255, 255, 255, 0.8), 0 0 16px rgba(129, 212, 250, 0.5);
+    animation-name: fxFrostFall;
+}
+
+@keyframes fxFrostFall {
+    0% {
+        transform: translate3d(0, -10vh, 0) scale(0.5);
+        opacity: 0;
+    }
+    10% {
+        opacity: var(--op, 0.6);
+    }
+    50% {
+        transform: translate3d(calc(var(--drift) * 0.5), 48vh, 0) scale(1);
+    }
+    90% {
+        opacity: var(--op, 0.6);
+    }
+    100% {
+        transform: translate3d(calc(var(--drift) * -0.2), 110vh, 0) scale(0.6);
+        opacity: 0;
+    }
+}
+
+/* ---------- Halloween: stars, embers, clouds, moon depth ---------- */
+.fx-star {
+    top: var(--top, 12vh);
+    background: radial-gradient(circle, #ffffff 0 26%, #ffe8b8 55%, rgba(255, 214, 153, 0.85) 72%, transparent 100%);
+    clip-path: polygon(50% 0%, 60% 40%, 100% 50%, 60% 60%, 50% 100%, 40% 60%, 0% 50%, 40% 40%);
+    filter: drop-shadow(0 0 4px rgba(255, 221, 158, 0.8));
+    animation: fxStarTwinkle var(--dur, 4s) ease-in-out var(--delay, 0s) infinite alternate;
+}
+
+@keyframes fxStarTwinkle {
+    0% {
+        opacity: 0.15;
+        transform: scale(0.55) rotate(0deg);
+    }
+    100% {
+        opacity: var(--op, 0.85);
+        transform: scale(1.15) rotate(45deg);
+    }
+}
+
+.fx-ember {
+    top: auto;
+    bottom: -4vh;
+    border-radius: 50%;
+    background: radial-gradient(circle, #ffe0b2 0 22%, #ff8a3d 48%, rgba(255, 107, 53, 0) 74%);
+    box-shadow: 0 0 9px var(--glow, rgba(255, 122, 50, 0.8)), 0 0 20px rgba(255, 122, 50, 0.35);
+    animation: fxEmberRise var(--dur, 16s) linear var(--delay, 0s) infinite;
+}
+
+@keyframes fxEmberRise {
+    0% {
+        transform: translate3d(0, 0, 0) scale(0.5);
+        opacity: 0;
+    }
+    12% {
+        opacity: var(--op, 0.5);
+    }
+    55% {
+        transform: translate3d(var(--drift), -55vh, 0) scale(1);
+    }
+    90% {
+        opacity: calc(var(--op, 0.5) * 0.5);
+    }
+    100% {
+        transform: translate3d(calc(var(--drift) * -0.6), -108vh, 0) scale(0.4);
+        opacity: 0;
+    }
+}
+
+.fx-cloud {
+    position: absolute;
+    top: var(--top, 12vh);
+    left: -46vw;
+    width: var(--w, 40vw);
+    height: calc(var(--w, 40vw) * 0.32);
+    border-radius: 50%;
+    opacity: 0;
+    background:
+        radial-gradient(ellipse at 28% 60%, rgba(203, 195, 245, 0.34), transparent 62%),
+        radial-gradient(ellipse at 58% 48%, rgba(255, 188, 130, 0.16), transparent 58%),
+        radial-gradient(ellipse at 82% 62%, rgba(186, 204, 255, 0.28), transparent 60%);
+    filter: blur(19px);
+    animation: fxCloudDrift var(--dur, 58s) linear var(--delay, 0s) infinite;
+}
+
+@keyframes fxCloudDrift {
+    0% {
+        transform: translate3d(0, 0, 0) scale(0.92);
+        opacity: 0;
+    }
+    9% {
+        opacity: var(--op, 0.3);
+    }
+    50% {
+        transform: translate3d(90vw, -1.2vh, 0) scale(1);
+    }
+    92% {
+        opacity: var(--op, 0.3);
+    }
+    100% {
+        transform: translate3d(158vw, -2.4vh, 0) scale(0.94);
+        opacity: 0;
+    }
+}
+
+.fx-moon::before {
+    content: '';
+    position: absolute;
+    inset: -38%;
+    border-radius: 50%;
+    background: radial-gradient(circle, transparent 0 53%, rgba(255, 232, 170, 0.32) 58%, rgba(255, 196, 94, 0.12) 70%, transparent 78%);
+    filter: blur(4px);
+    animation: fxMoonHalo 6s ease-in-out infinite alternate;
+    pointer-events: none;
+}
+
+@keyframes fxMoonHalo {
+    from {
+        transform: scale(0.94);
+        opacity: 0.5;
+    }
+    to {
+        transform: scale(1.08);
+        opacity: 0.9;
+    }
+}
+
+/* ---------- Summer: sun rays, bokeh and airy light ---------- */
+.fx-sun::before {
+    content: '';
+    position: absolute;
+    inset: -155%;
+    border-radius: 50%;
+    background: repeating-conic-gradient(from 0deg, rgba(255, 224, 130, 0.2) 0deg 2deg, transparent 2deg 15deg);
+    -webkit-mask: radial-gradient(circle, transparent 0 30%, #000 34% 50%, transparent 66%);
+    mask: radial-gradient(circle, transparent 0 30%, #000 34% 50%, transparent 66%);
+    animation: fxSunRays 70s linear infinite;
+    pointer-events: none;
+}
+
+.fx-sun::after {
+    content: '';
+    position: absolute;
+    inset: 9%;
+    border-radius: 50%;
+    background: radial-gradient(circle at 34% 30%, rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0) 48%);
+    mix-blend-mode: screen;
+    pointer-events: none;
+}
+
+@keyframes fxSunRays {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.fx-spark {
+    filter: drop-shadow(0 0 5px rgba(255, 213, 79, 0.75));
+}
+
+.fx-bokeh {
+    top: auto;
+    bottom: -8vh;
+    border-radius: 50%;
+    background: radial-gradient(circle at 35% 32%, rgba(255, 255, 255, 0.9), rgba(255, 236, 179, 0.38) 44%, rgba(255, 193, 7, 0.14) 68%, transparent 76%);
+    box-shadow: 0 0 18px var(--glow, rgba(255, 213, 79, 0.55));
+    filter: blur(1.5px);
+    animation: fxBokehRise var(--dur, 20s) ease-in-out var(--delay, 0s) infinite;
+}
+
+@keyframes fxBokehRise {
+    0% {
+        transform: translate3d(0, 0, 0) scale(0.6);
+        opacity: 0;
+    }
+    14% {
+        opacity: var(--op, 0.3);
+    }
+    60% {
+        transform: translate3d(var(--drift), -58vh, 0) scale(1);
+    }
+    88% {
+        opacity: calc(var(--op, 0.3) * 0.7);
+    }
+    100% {
+        transform: translate3d(calc(var(--drift) * -0.5), -110vh, 0) scale(0.55);
+        opacity: 0;
+    }
+}
+
+/* ---------- Spring / autumn floating motes ---------- */
+.fx-pollen,
+.fx-dust {
+    top: auto;
+    bottom: -5vh;
+    border-radius: 50%;
+    background: radial-gradient(circle, #fffef4 0 20%, #ffe082 48%, rgba(255, 213, 79, 0) 74%);
+    box-shadow: 0 0 7px var(--glow, rgba(255, 236, 179, 0.9)), 0 0 16px rgba(255, 213, 79, 0.25);
+    animation: fxMoteFloat var(--dur, 18s) ease-in-out var(--delay, 0s) infinite;
+}
+
+.fx-dust {
+    background: radial-gradient(circle, #fff5d0 0 18%, #e09a36 48%, rgba(224, 154, 54, 0) 74%);
+    box-shadow: 0 0 7px var(--glow, rgba(243, 156, 18, 0.8)), 0 0 15px rgba(230, 126, 34, 0.24);
+}
+
+@keyframes fxMoteFloat {
+    0% {
+        transform: translate3d(0, 0, 0) scale(0.55);
+        opacity: 0;
+    }
+    16% {
+        opacity: var(--op, 0.55);
+    }
+    55% {
+        transform: translate3d(var(--drift), -52vh, 0) scale(1);
+    }
+    86% {
+        opacity: calc(var(--op, 0.55) * 0.7);
+    }
+    100% {
+        transform: translate3d(calc(var(--drift) * -0.7), -106vh, 0) scale(0.5);
+        opacity: 0;
+    }
+}
+
+/* ---------- Refined cards ---------- */
+body[data-theme] #services .service,
+body[data-theme] #work .border-hover,
+body[data-theme] #Models .border-hover,
+body[data-theme] #contact .service,
+body[data-theme] #live-info .service {
+    background-color: var(--theme-card-bg) !important;
+    background-image: var(--theme-card-sheen), var(--theme-card-pattern);
+    background-repeat: no-repeat, repeat;
+    background-size: auto, var(--theme-card-pattern-size, auto);
+    border: 1px solid var(--theme-card-border) !important;
+    box-shadow:
+        inset 0 1px 0 var(--theme-card-hairline),
+        0 2px 5px rgba(0, 0, 0, 0.03),
+        0 20px 46px -24px var(--theme-shadow) !important;
+    backdrop-filter: blur(10px) saturate(1.06);
+    -webkit-backdrop-filter: blur(10px) saturate(1.06);
+    position: relative;
+    overflow: hidden;
+    transition: transform 0.45s cubic-bezier(0.22, 0.7, 0.24, 1), border-color 0.35s ease, box-shadow 0.4s ease;
+}
+
+body[data-theme] #services .service::after,
+body[data-theme] #work .border-hover::after,
+body[data-theme] #Models .border-hover::after,
+body[data-theme] #contact .service::after,
+body[data-theme] #live-info .service::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    z-index: 4;
+    pointer-events: none;
+    background: linear-gradient(90deg, transparent 0%, var(--theme-primary) 18%, var(--theme-secondary) 54%, var(--theme-accent) 82%, transparent 100%);
+    opacity: 0.92;
+}
+
+body[data-theme] #services .service:hover,
+body[data-theme] #work .border-hover:hover,
+body[data-theme] #Models .border-hover:hover,
+body[data-theme] #contact .service:hover,
+body[data-theme] #live-info .service:hover {
+    transform: translateY(-9px) scale(1.012);
+    border-color: var(--theme-primary) !important;
+    box-shadow:
+        inset 0 1px 0 var(--theme-card-hairline),
+        0 28px 60px -22px var(--theme-shadow-hover) !important;
+}
+
+body[data-theme] #live-info .service h5 {
+    color: var(--theme-text) !important;
+}
+
+body[data-theme] #live-info .service:hover h5 {
+    color: var(--theme-primary) !important;
+}
+
+body[data-theme] #live-info .service p {
+    color: var(--theme-text-muted) !important;
+}
+
+body[data-theme] #live-info .service p.fs-4 {
+    color: var(--theme-text) !important;
+}
+
+body[data-theme="halloween"] #live-info .service {
+    border-radius: 24px 8px 24px 8px !important;
+}
+
+body[data-theme="autumn"] #live-info .service {
+    border-radius: 20px 20px 20px 5px !important;
+}
+
+body[data-theme="winter"] #live-info .service {
+    border-radius: 18px !important;
+}
+
+body[data-theme="spring"] #live-info .service {
+    border-radius: 26px 10px 26px 10px !important;
+}
+
+body[data-theme="summer"] #live-info .service {
+    border-radius: 26px !important;
+}
+
+/* ---------- Glass icon medallions ---------- */
+body[data-theme] .service .icon {
+    background:
+        radial-gradient(circle at 30% 22%, rgba(255, 255, 255, 0.58), transparent 46%),
+        var(--theme-icon-bg) !important;
+    border: 1px solid var(--theme-icon-border) !important;
+    box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, 0.55),
+        inset 0 -10px 18px rgba(0, 0, 0, 0.08),
+        0 12px 28px -8px var(--theme-icon-glow),
+        0 0 0 5px var(--theme-badge-bg) !important;
+    color: var(--theme-icon-fg) !important;
+    text-shadow: 0 1px 0 rgba(255, 255, 255, 0.25);
+}
+
+body[data-theme] .service .icon::after {
+    content: '';
+    position: absolute;
+    left: 12%;
+    right: 12%;
+    top: 7%;
+    height: 38%;
+    border-radius: 50%;
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.55), rgba(255, 255, 255, 0));
+    filter: blur(1px);
+    opacity: 0.75;
+    pointer-events: none;
+    z-index: 0;
+}
+
+body[data-theme] .service .icon i {
+    position: relative;
+    z-index: 1;
+    filter: drop-shadow(0 2px 3px rgba(0, 0, 0, 0.16));
+}
+
+body[data-theme] .service:hover .icon {
+    transform: translateY(-5px) rotate(-4deg) scale(1.06) !important;
+    box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, 0.65),
+        inset 0 -10px 18px rgba(0, 0, 0, 0.07),
+        0 16px 36px -8px var(--theme-icon-glow),
+        0 0 0 6px var(--theme-badge-bg) !important;
+}
+
+/* ---------- Emblem badge in section headings ---------- */
+body[data-theme] .intro-section h1::before {
+    display: inline-grid;
+    place-items: center;
+    width: 1.24em;
+    height: 1.24em;
+    margin-right: 0.34em;
+    padding: 0;
+    font-size: 0.68em;
+    line-height: 1;
+    vertical-align: -0.1em;
+    border-radius: 0.34em;
+    border: 1px solid var(--theme-brand-border);
+    background:
+        radial-gradient(circle at 30% 22%, rgba(255, 255, 255, 0.7), transparent 48%),
+        var(--theme-brand-bg);
+    box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, 0.55),
+        0 0.14em 0.34em var(--theme-icon-glow);
+    -webkit-text-fill-color: initial;
+    color: var(--theme-primary);
+    animation: fxEmblemFloat 5s ease-in-out infinite;
+    transform-origin: 50% 65%;
+}
+
+body[data-theme="halloween"] .intro-section h1::before {
+    border-radius: 46% 54% 42% 58% / 52% 44% 56% 48%;
+}
+
+body[data-theme="autumn"] .intro-section h1::before {
+    border-radius: 52% 20% 52% 20% / 42% 54% 46% 58%;
+}
+
+body[data-theme="winter"] .intro-section h1::before {
+    border-radius: 50%;
+}
+
+body[data-theme="spring"] .intro-section h1::before {
+    border-radius: 58% 42% 55% 45% / 46% 56% 44% 54%;
+}
+
+body[data-theme="summer"] .intro-section h1::before {
+    border-radius: 50%;
+}
+
+@keyframes fxEmblemFloat {
+    0%,
+    100% {
+        transform: translateY(0) rotate(-3deg);
+    }
+    50% {
+        transform: translateY(-4px) rotate(3deg);
+    }
+}
+
+/* ---------- Navbar, badges, buttons and footer polish ---------- */
+body[data-theme] .navbar {
+    backdrop-filter: blur(18px) saturate(1.18);
+    -webkit-backdrop-filter: blur(18px) saturate(1.18);
+    border-bottom: 1px solid var(--theme-brand-border) !important;
+    box-shadow: 0 12px 34px -30px var(--theme-shadow) !important;
+}
+
+body[data-theme] .badge {
+    background:
+        radial-gradient(circle at 30% 20%, rgba(255, 255, 255, 0.28), transparent 50%),
+        var(--theme-badge-bg) !important;
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.28) !important;
+}
+
+body[data-theme] .btn-info,
+body[data-theme] .btn-outline-info:hover {
+    box-shadow: 0 10px 24px -10px var(--theme-icon-glow) !important;
+}
+
+body[data-theme] footer {
+    background-image:
+        linear-gradient(180deg, rgba(255, 255, 255, 0.16), transparent 38%),
+        linear-gradient(rgba(0, 0, 0, 0.16), rgba(0, 0, 0, 0.22)),
+        radial-gradient(circle at 20% 25%, rgba(255, 255, 255, 0.18) 0 1.5px, transparent 2px),
+        radial-gradient(circle at 70% 70%, rgba(255, 255, 255, 0.12) 0 1.5px, transparent 2px) !important;
+    background-size: auto, auto, 32px 32px, 44px 44px !important;
+    border-top: 1px solid rgba(255, 255, 255, 0.22);
+}
+
+body[data-theme] footer .footer-logo {
+    box-shadow: 0 10px 24px rgba(0, 0, 0, 0.2), inset 0 1px 0 rgba(255, 255, 255, 0.35) !important;
+}
+
+body[data-theme] .settings-menu {
+    backdrop-filter: blur(22px) saturate(1.2);
+    -webkit-backdrop-filter: blur(22px) saturate(1.2);
+}
+
+body[data-theme] .theme-select:focus {
+    box-shadow: 0 0 0 2px var(--theme-social-glow) !important;
+}
+
+body[data-theme] .social-icon:hover {
+    box-shadow: 0 12px 32px var(--theme-social-glow), 0 0 0 1px rgba(255, 255, 255, 0.25) !important;
+}
+
+/* Keep the scene lively but light on small screens */
+@media (max-width: 576px) {
+    .fx-particle:nth-child(n + 25) {
+        display: block;
+    }
+
+    .fx-cloud {
+        width: calc(var(--w, 40vw) * 1.15);
+        filter: blur(15px);
+    }
+
+    .fx-bokeh {
+        filter: blur(1px);
+    }
+}
+
 

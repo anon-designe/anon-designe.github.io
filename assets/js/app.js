@@ -85,16 +85,16 @@ window.onload = function () {
     css.type = "text/css";
     css.innerHTML = `
         .typewrite > .wrap { 
-            border-right: 0.08em solid #0dcaf0;
+            border-right: 0.08em solid var(--theme-typewriter-border, #0dcaf0);
             animation: blink 1s infinite;
             padding-right: 2px;
         }
         @keyframes blink {
-            0%, 50% { border-color: #0dcaf0; }
+            0%, 50% { border-color: var(--theme-typewriter-border, #0dcaf0); }
             51%, 100% { border-color: transparent; }
         }
         .dark-theme .typewrite > .wrap {
-            border-right-color: #0dcaf0;
+            border-right-color: var(--theme-typewriter-border, #0dcaf0);
         }
     `;
     document.body.appendChild(css);

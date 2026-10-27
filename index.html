@@ -1061,9 +1061,15 @@
         <div class="settings-menu" id="settingsMenu">
             <div class="settings-header">
                 <h6>Settings</h6>
-                <button class="settings-close" id="settingsClose">
-                    <i class="ri-close-line"></i>
-                </button>
+                <div class="settings-header-actions">
+                    <button class="setting-icon-btn" id="clearDataBtn" title="Delete site data &amp; cookies"
+                        aria-label="Delete site data and cookies">
+                        <i class="ri-delete-bin-6-line"></i>
+                    </button>
+                    <button class="settings-close" id="settingsClose">
+                        <i class="ri-close-line"></i>
+                    </button>
+                </div>
             </div>
 
             <div class="settings-content">
@@ -1107,6 +1113,35 @@
                     </label>
                 </div>
 
+                <div class="setting-item">
+                    <label class="setting-label">
+                        <span>Theme</span>
+                        <select id="themeSelect" class="theme-select">
+                            <option value="default">Default</option>
+                            <option value="halloween">Halloween</option>
+                            <option value="autumn">Autumn</option>
+                            <option value="winter">Winter</option>
+                            <option value="spring">Spring</option>
+                            <option value="summer">Summer</option>
+                        </select>
+                    </label>
+                </div>
+
+                <div class="setting-divider"></div>
+                <div id="clearDataConfirm" class="clear-data-confirm" hidden>
+                    <div class="clear-data-message">
+                        <i class="ri-error-warning-line"></i>
+                        <div>
+                            <strong>Delete site data &amp; cookies?</strong>
+                            <p>Removes your saved settings, theme, and cookies for this website only. This action cannot be undone.</p>
+                        </div>
+                    </div>
+                    <div class="clear-data-actions">
+                        <button type="button" class="clear-cancel-btn" id="clearDataCancel">Cancel</button>
+                        <button type="button" class="clear-confirm-btn" id="clearDataConfirmBtn">Delete</button>
+                    </div>
+                </div>
+
             </div>
         </div>
     </div>
@@ -1114,6 +1149,9 @@
     <button id="backToTop" class="back-to-top">
         <i class="ri-arrow-up-line"></i>
     </button>
+
+    <!-- Seasonal theme effects layer -->
+    <div id="theme-effects" class="theme-effects" aria-hidden="true"></div>
 
     <script>
         // Settings Floating Button
@@ -1124,7 +1162,57 @@
         const animationsToggle = document.getElementById('animationsToggle');
         const autoScrollToggle = document.getElementById('autoScrollToggle');
         const soundToggle = document.getElementById('soundToggle');
+        const themeSelect = document.getElementById('themeSelect');
         const body = document.body;
+
+        // Theme functions
+        function applyTheme(themeName) {
+            removeTheme();
+            document.documentElement.setAttribute('data-theme', themeName);
+            body.setAttribute('data-theme', themeName);
+            
+            // Direct JS color application to override any CSS conflicts
+            const root = document.documentElement;
+            root.style.setProperty('--theme-primary', getThemeColor(themeName, 'primary'));
+            root.style.setProperty('--theme-footer-bg', getThemeColor(themeName, 'footer'));
+            
+            // Apply direct background to hero (uses the themed CSS variable so
+            // the hero and the rest of the page always share one gradient).
+            const hero = document.querySelector('.hero-section');
+            if (hero) { hero.style.background = 'var(--theme-bg-gradient)'; }
+            
+            // Apply direct footer background
+            const footer = document.querySelector('footer');
+            if (footer) footer.style.setProperty('background-color', getThemeFooterColor(themeName), 'important');
+        }
+        
+        function getThemeColor(name, type) {
+            const colors = {
+                halloween: {primary: '#ff6b35', footer: '#ff6b35'},
+                autumn: {primary: '#d35400', footer: '#d35400'},
+                winter: {primary: '#4fc3f7', footer: '#4fc3f7'},
+                spring: {primary: '#4caf50', footer: '#4caf50'},
+                summer: {primary: '#ff9800', footer: '#ff9800'}
+            };
+            return (colors[name] || colors.default || {primary: '#0dcaf0', footer: '#0dcaf0'})[type];
+        }
+        
+        function getThemeFooterColor(name) {
+            const colors = { halloween: '#ff6b35', autumn: '#d35400', winter: '#4fc3f7', spring: '#4caf50', summer: '#ff9800' };
+            return colors[name] || '#0dcaf0';
+        }
+
+        function removeTheme() {
+            document.documentElement.removeAttribute('data-theme');
+            body.removeAttribute('data-theme');
+            const root = document.documentElement;
+            root.style.removeProperty('--theme-primary');
+            root.style.removeProperty('--theme-footer-bg');
+            const hero = document.querySelector('.hero-section');
+            if (hero) hero.style.removeProperty('background');
+            const footer = document.querySelector('footer');
+            if (footer) footer.style.removeProperty('background-color');
+        }
 
         // Load saved settings
         function loadSettings() {
@@ -1153,6 +1241,15 @@
             } else {
                 soundToggle.checked = false;
             }
+
+            // Theme
+            if (settings.theme && settings.theme !== 'default') {
+                applyTheme(settings.theme);
+                if (themeSelect) themeSelect.value = settings.theme;
+            } else {
+                removeTheme();
+                if (themeSelect) themeSelect.value = 'default';
+            }
         }
 
         // Save settings
@@ -1161,7 +1258,8 @@
                 darkMode: darkModeToggle.checked,
                 animations: animationsToggle.checked,
                 autoScroll: autoScrollToggle.checked,
-                soundEffects: soundToggle.checked
+                soundEffects: soundToggle.checked,
+                theme: themeSelect ? themeSelect.value : 'default'
             };
             localStorage.setItem('siteSettings', JSON.stringify(settings));
         }
@@ -1206,6 +1304,64 @@
             saveSettings();
             applySoundEffects();
         });
+
+        // Theme Selection
+        if (themeSelect) {
+            themeSelect.addEventListener('change', () => {
+                if (themeSelect.value === 'default') {
+                    removeTheme();
+                } else {
+                    applyTheme(themeSelect.value);
+                }
+                saveSettings();
+            });
+        }
+
+        // Clear Site Data Button (icon only -> shows explanation panel)
+        const clearDataBtn = document.getElementById('clearDataBtn');
+        const clearDataConfirm = document.getElementById('clearDataConfirm');
+        const clearDataCancel = document.getElementById('clearDataCancel');
+        const clearDataConfirmBtn = document.getElementById('clearDataConfirmBtn');
+
+        if (clearDataBtn && clearDataConfirm) {
+            clearDataBtn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                clearDataConfirm.hidden = !clearDataConfirm.hidden;
+            });
+        }
+
+        if (clearDataCancel && clearDataConfirm) {
+            clearDataCancel.addEventListener('click', () => {
+                clearDataConfirm.hidden = true;
+            });
+        }
+
+        if (clearDataConfirmBtn && clearDataConfirm) {
+            clearDataConfirmBtn.addEventListener('click', () => {
+                // Clear localStorage for this site
+                localStorage.clear();
+
+                // Clear cookies for this site only
+                document.cookie.split(";").forEach(function (c) {
+                    const eqPos = c.indexOf("=");
+                    const name = eqPos > -1 ? c.substr(0, eqPos).trim() : c.trim();
+                    document.cookie = name + "=;expires=Thu, 01 Jan 1970 00:00:00 UTC;path=/;domain=" + window.location.hostname;
+                    document.cookie = name + "=;expires=Thu, 01 Jan 1970 00:00:00 UTC;path=/";
+                });
+
+                // Reset UI state
+                darkModeToggle.checked = false;
+                animationsToggle.checked = true;
+                autoScrollToggle.checked = true;
+                soundToggle.checked = false;
+                if (themeSelect) themeSelect.value = 'default';
+                removeTheme();
+                body.classList.remove('dark-theme', 'no-animations');
+
+                clearDataConfirm.hidden = true;
+                setTimeout(() => { window.location.reload(); }, 300);
+            });
+        }
 
         // Apply Auto-scroll functionality
         function applyAutoScroll() {
@@ -1297,6 +1453,284 @@
             applyAutoScroll();
             applySoundEffects();
         }, 100);
+    </script>
+
+    <!-- Seasonal effects engine -->
+    <script>
+        (function () {
+            const overlay = document.getElementById('theme-effects');
+            if (!overlay) return;
+
+            const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+            const rand = (min, max) => Math.random() * (max - min) + min;
+            const pick = (arr) => arr[Math.floor(Math.random() * arr.length)];
+            let lastState = '';
+
+            const BAT_SVG = '<svg viewBox="0 0 64 28" aria-hidden="true">' +
+                '<path class="bat-wing bat-wing-left" d="M32 12C26 4 17 1.5 6 3.5c6 2.2 8.4 6.2 9.3 10.4-3.3-1-6.4 1.8-8.3 6 7-2.2 12.4-1 16.7 3.2 1.7-4 4.2-6.4 8.3-7.1z"/>' +
+                '<path class="bat-wing bat-wing-right" d="M32 12c6-8 15-10.5 26-8.5-6 2.2-8.4 6.2-9.3 10.4 3.3-1 6.4 1.8 8.3 6-7-2.2-12.4-1-16.7 3.2-1.7-4-4.2-6.4-8.3-7.1z"/>' +
+                '<ellipse cx="32" cy="14" rx="3.4" ry="6.4"/>' +
+                '<path d="M28.5 8.2 26 3.4l4.6 2.2zM35.5 8.2 38 3.4l-4.6 2.2z"/>' +
+                '</svg>';
+
+            function clearEffects() {
+                overlay.className = 'theme-effects';
+                overlay.innerHTML = '';
+            }
+
+            function addParticles(count, className, optionsFactory, text) {
+                const frag = document.createDocumentFragment();
+                for (let i = 0; i < count; i++) {
+                    const el = document.createElement('span');
+                    const o = optionsFactory();
+                    el.className = 'fx-particle ' + className + (o.variant ? ' ' + o.variant : '');
+                    el.style.setProperty('--x', o.x + '%');
+                    el.style.setProperty('--size', o.size + 'px');
+                    el.style.setProperty('--dur', o.dur + 's');
+                    el.style.setProperty('--delay', (-o.delay) + 's');
+                    el.style.setProperty('--drift', o.drift + 'vw');
+                    el.style.setProperty('--op', o.op);
+                    if (o.top !== undefined) el.style.setProperty('--top', o.top + 'vh');
+                    if (o.blur) el.style.setProperty('--blur', o.blur + 'px');
+                    if (o.colorA) el.style.setProperty('--color-a', o.colorA);
+                    if (o.colorB) el.style.setProperty('--color-b', o.colorB);
+                    if (o.glow) el.style.setProperty('--glow', o.glow);
+                    if (text) el.textContent = pick(text);
+                    frag.appendChild(el);
+                }
+                overlay.appendChild(frag);
+            }
+
+            function buildHalloween() {
+                // A soft, starry sky.
+                addParticles(58, 'fx-star', () => ({
+                    x: rand(0, 100),
+                    top: rand(1, 74),
+                    size: rand(1.4, 4.2),
+                    dur: rand(2.4, 6.8),
+                    delay: rand(0, 6),
+                    op: rand(0.3, 0.95)
+                }));
+
+                // Warm embers drifting up from the bottom.
+                addParticles(14, 'fx-ember', () => ({
+                    x: rand(0, 100),
+                    size: rand(3, 7),
+                    dur: rand(12, 22),
+                    delay: rand(0, 16),
+                    drift: rand(-9, 9),
+                    op: rand(0.25, 0.65),
+                    glow: 'rgba(255, 122, 50, 0.8)'
+                }));
+
+                const moon = document.createElement('div');
+                moon.className = 'fx-moon';
+                overlay.appendChild(moon);
+
+                // Thin clouds crossing the moon.
+                const clouds = [
+                    { top: 7, width: 42, dur: 52, delay: -18, op: 0.34 },
+                    { top: 23, width: 30, dur: 64, delay: -40, op: 0.24 },
+                    { top: 38, width: 50, dur: 78, delay: -10, op: 0.18 }
+                ];
+                clouds.forEach(c => {
+                    const cloud = document.createElement('span');
+                    cloud.className = 'fx-cloud';
+                    cloud.style.setProperty('--top', c.top + 'vh');
+                    cloud.style.setProperty('--w', c.width + 'vw');
+                    cloud.style.setProperty('--dur', c.dur + 's');
+                    cloud.style.setProperty('--delay', c.delay + 's');
+                    cloud.style.setProperty('--op', c.op);
+                    overlay.appendChild(cloud);
+                });
+
+                const fog = document.createElement('div');
+                fog.className = 'fx-fog';
+                overlay.appendChild(fog);
+
+                for (let i = 0; i < 6; i++) {
+                    const bat = document.createElement('span');
+                    bat.className = 'fx-bat';
+                    bat.style.setProperty('--top', rand(7, 46) + 'vh');
+                    bat.style.setProperty('--size', rand(34, 64) + 'px');
+                    bat.style.setProperty('--dur', rand(17, 32) + 's');
+                    bat.style.setProperty('--delay', (-rand(0, 18)) + 's');
+                    bat.style.setProperty('--rise', rand(-48, 18) + 'px');
+                    bat.innerHTML = BAT_SVG;
+                    overlay.appendChild(bat);
+                }
+            }
+
+            function buildAutumn() {
+                const colors = ['#d35400', '#e67e22', '#f39c12', '#c0392b', '#b07d3a', '#f1c40f', '#a8451d', '#e0a030'];
+                const shapes = ['leaf-maple', 'leaf-oak', 'leaf-birch', 'leaf-elm'];
+                addParticles(32, 'fx-leaf', () => {
+                    const size = rand(11, 26);
+                    return {
+                        x: rand(-2, 100),
+                        size: size,
+                        dur: rand(9, 21),
+                        delay: rand(0, 18),
+                        drift: rand(-16, 19),
+                        op: rand(0.5, 0.95),
+                        colorA: pick(colors),
+                        colorB: pick(colors),
+                        variant: pick(shapes),
+                        blur: size < 15 ? rand(0.2, 0.8) : 0
+                    };
+                });
+
+                // Fine golden dust for a warm, hazy autumn atmosphere.
+                addParticles(14, 'fx-dust', () => ({
+                    x: rand(0, 100),
+                    size: rand(2.5, 6),
+                    dur: rand(12, 24),
+                    delay: rand(0, 20),
+                    drift: rand(-8, 9),
+                    op: rand(0.2, 0.6),
+                    glow: 'rgba(243, 156, 18, 0.75)'
+                }));
+            }
+
+            function buildWinter() {
+                const flakes = ['❄', '❅', '❆'];
+                const colors = ['#4fc3f7', '#81d4fa', '#b3e5fc', '#ffffff'];
+
+                // Soft round flakes give depth behind the crystal glyphs.
+                addParticles(28, 'fx-snow-dot', () => ({
+                    x: rand(-2, 100),
+                    size: rand(2.2, 5.8),
+                    dur: rand(9, 21),
+                    delay: rand(0, 20),
+                    drift: rand(-8, 10),
+                    op: rand(0.3, 0.85),
+                    blur: rand(0, 0.7)
+                }));
+
+                addParticles(24, 'fx-snow', () => ({
+                    x: rand(-2, 100),
+                    size: rand(9, 23),
+                    dur: rand(8, 18),
+                    delay: rand(0, 16),
+                    drift: rand(-10, 12),
+                    op: rand(0.4, 0.9),
+                    colorA: pick(colors),
+                    glow: 'rgba(79, 195, 247, 0.55)'
+                }), flakes);
+
+                // A few large, out-of-focus crystals for a real camera-depth feel.
+                addParticles(5, 'fx-snow', () => ({
+                    x: rand(0, 100),
+                    size: rand(24, 38),
+                    dur: rand(18, 30),
+                    delay: rand(0, 24),
+                    drift: rand(-6, 7),
+                    op: rand(0.14, 0.3),
+                    colorA: '#ffffff',
+                    glow: 'rgba(179, 229, 252, 0.7)',
+                    blur: rand(2, 3.6)
+                }), ['❄', '❅']);
+
+                addParticles(10, 'fx-frost', () => ({
+                    x: rand(0, 100),
+                    size: rand(2, 4.5),
+                    dur: rand(10, 18),
+                    delay: rand(0, 14),
+                    drift: rand(-5, 6),
+                    op: rand(0.3, 0.7),
+                    glow: 'rgba(179, 229, 252, 0.85)'
+                }));
+            }
+
+            function buildSpring() {
+                const colors = ['#f8bbd0', '#f48fb1', '#f06292', '#ce93d8', '#fff1f5', '#ffd7e3'];
+                const shapes = ['petal-round', 'petal-slim', 'petal-heart'];
+                addParticles(24, 'fx-petal', () => {
+                    const size = rand(8, 19);
+                    return {
+                        x: rand(-2, 100),
+                        size: size,
+                        dur: rand(10, 21),
+                        delay: rand(0, 17),
+                        drift: rand(-17, 17),
+                        op: rand(0.5, 0.95),
+                        colorA: pick(colors),
+                        colorB: pick(colors),
+                        variant: pick(shapes),
+                        blur: size < 11 ? rand(0.2, 0.8) : 0
+                    };
+                });
+
+                // Sunlit pollen floating through the spring air.
+                addParticles(26, 'fx-pollen', () => ({
+                    x: rand(-2, 100),
+                    size: rand(2.5, 6.5),
+                    dur: rand(12, 24),
+                    delay: rand(0, 20),
+                    drift: rand(-12, 12),
+                    op: rand(0.25, 0.75),
+                    glow: 'rgba(255, 236, 179, 0.9)'
+                }));
+            }
+
+            function buildSummer() {
+                const sun = document.createElement('div');
+                sun.className = 'fx-sun';
+                overlay.appendChild(sun);
+
+                addParticles(28, 'fx-spark', () => ({
+                    x: rand(-2, 100),
+                    size: rand(3.5, 10),
+                    dur: rand(7, 15),
+                    delay: rand(0, 13),
+                    drift: rand(-8, 8),
+                    op: rand(0.3, 0.85),
+                    glow: 'rgba(255, 193, 7, 0.8)'
+                }));
+
+                // Warm bokeh circles make the sunlight feel photographic.
+                addParticles(16, 'fx-bokeh', () => ({
+                    x: rand(-2, 100),
+                    size: rand(9, 28),
+                    dur: rand(14, 26),
+                    delay: rand(0, 20),
+                    drift: rand(-7, 7),
+                    op: rand(0.12, 0.35),
+                    glow: 'rgba(255, 213, 79, 0.55)'
+                }));
+            }
+
+            function sync() {
+                const theme = document.body.getAttribute('data-theme') || 'default';
+                const disabled = document.body.classList.contains('no-animations') || reduceMotion.matches;
+                const state = theme + '|' + disabled;
+
+                if (state === lastState) return;
+                lastState = state;
+                clearEffects();
+
+                if (theme === 'default' || disabled) return;
+
+                overlay.classList.add('fx-' + theme);
+
+                switch (theme) {
+                    case 'halloween': buildHalloween(); break;
+                    case 'autumn': buildAutumn(); break;
+                    case 'winter': buildWinter(); break;
+                    case 'spring': buildSpring(); break;
+                    case 'summer': buildSummer(); break;
+                }
+            }
+
+            const observer = new MutationObserver(sync);
+            observer.observe(document.body, { attributes: true, attributeFilter: ['data-theme', 'class'] });
+
+            if (typeof reduceMotion.addEventListener === 'function') {
+                reduceMotion.addEventListener('change', sync);
+            }
+
+            sync();
+        })();
     </script>
 </body>
 
