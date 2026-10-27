@@ -1123,6 +1123,9 @@
                             <option value="winter">Winter</option>
                             <option value="spring">Spring</option>
                             <option value="summer">Summer</option>
+                            <option value="ramadan">Ramadan</option>
+                            <option value="eid-fitr">Eid al-Fitr</option>
+                            <option value="adha">Eid al-Adha</option>
                         </select>
                     </label>
                 </div>
@@ -1552,6 +1555,109 @@
                 '<rect x="662" y="150" width="12" height="12" fill="rgba(255, 166, 64, 0.9)"/>' +
                 '</svg>';
 
+            // Crescent moon (Ramadan / Eid) with a soft inner shading.
+            function crescentSvg(prefix, colorLight, colorMid, colorDeep) {
+                const id = prefix + '-grad-' + (++gidCounter);
+                return '<svg viewBox="0 0 100 100" aria-hidden="true">' +
+                    '<defs><radialGradient id="' + id + '" cx="32%" cy="30%" r="85%">' +
+                    '<stop offset="0" stop-color="' + colorLight + '"/>' +
+                    '<stop offset="0.55" stop-color="' + colorMid + '"/>' +
+                    '<stop offset="1" stop-color="' + colorDeep + '"/>' +
+                    '</radialGradient></defs>' +
+                    '<path fill="url(#' + id + ')" d="M64 7 A46.5 46.5 0 1 0 93 61 A37 37 0 0 1 64 7 Z"/>' +
+                    '</svg>';
+            }
+
+            // Traditional Ramadan lantern (fanoos) with a glowing glass core.
+            // stringLen adds a hanging cord of that viewBox length above the lantern.
+            function lanternSvg(colorA, colorB, stringLen) {
+                const L = Math.max(0, stringLen || 0);
+                const id = 'lantern-grad-' + (++gidCounter);
+                return '<svg viewBox="0 0 60 ' + (96 + L) + '" aria-hidden="true">' +
+                    '<defs>' +
+                    '<linearGradient id="' + id + '-metal" x1="0" y1="0" x2="1" y2="1">' +
+                    '<stop offset="0" stop-color="' + colorA + '"/><stop offset="1" stop-color="' + colorB + '"/>' +
+                    '</linearGradient>' +
+                    '<radialGradient id="' + id + '-glass" cx="50%" cy="42%" r="72%">' +
+                    '<stop offset="0" stop-color="#fff6d8"/><stop offset="0.55" stop-color="#ffcf7a"/><stop offset="1" stop-color="#f0a437"/>' +
+                    '</radialGradient>' +
+                    '</defs>' +
+                    '<line x1="30" y1="0" x2="30" y2="' + (8 + L) + '" stroke="#7a5a16" stroke-width="1.6"/>' +
+                    '<circle cx="30" cy="' + (11 + L) + '" r="3" fill="none" stroke="url(#' + id + '-metal)" stroke-width="2.2"/>' +
+                    '<path fill="url(#' + id + '-metal)" d="M17 ' + (27 + L) + ' Q30 ' + (11 + L) + ' 43 ' + (27 + L) + ' Z"/>' +
+                    '<path fill="url(#' + id + '-metal)" d="M20 ' + (25 + L) + ' C5 ' + (35 + L) + ' 5 ' + (54 + L) + ' 20 ' + (64 + L) + ' L40 ' + (64 + L) + ' C55 ' + (54 + L) + ' 55 ' + (35 + L) + ' 40 ' + (25 + L) + ' Z"/>' +
+                    '<path class="glass" fill="url(#' + id + '-glass)" d="M23.5 ' + (29 + L) + ' C12.5 ' + (37.5 + L) + ' 12.5 ' + (52.5 + L) + ' 23.5 ' + (60 + L) + ' L36.5 ' + (60 + L) + ' C47.5 ' + (52.5 + L) + ' 47.5 ' + (37.5 + L) + ' 36.5 ' + (29 + L) + ' Z"/>' +
+                    '<line x1="30" y1="' + (64 + L) + '" x2="30" y2="' + (71 + L) + '" stroke="#7a5a16" stroke-width="1.6"/>' +
+                    '<path fill="url(#' + id + '-metal)" d="M22 ' + (71 + L) + ' L38 ' + (71 + L) + ' L30 ' + (82 + L) + ' Z"/>' +
+                    '<circle cx="30" cy="' + (85.5 + L) + '" r="3.2" fill="url(#' + id + '-metal)"/>' +
+                    '<line x1="30" y1="' + (89 + L) + '" x2="30" y2="' + (96 + L) + '" stroke="#7a5a16" stroke-width="1.4"/>' +
+                    '</svg>';
+            }
+
+            // Festive balloon with a knotted, waving string.
+            function balloonSvg(colorA, colorB) {
+                const id = 'balloon-grad-' + (++gidCounter);
+                return '<svg viewBox="0 0 40 94" aria-hidden="true">' +
+                    '<defs><radialGradient id="' + id + '" cx="32%" cy="26%" r="85%">' +
+                    '<stop offset="0" stop-color="' + colorA + '"/>' +
+                    '<stop offset="1" stop-color="' + colorB + '"/>' +
+                    '</radialGradient></defs>' +
+                    '<ellipse cx="20" cy="20" rx="16" ry="20" fill="url(#' + id + ')"/>' +
+                    '<ellipse cx="13.5" cy="12" rx="4.6" ry="7" fill="rgba(255, 255, 255, 0.5)"/>' +
+                    '<path fill="' + colorB + '" d="M20 39 L15.5 46.5 L24.5 46.5 Z"/>' +
+                    '<path d="M20 46.5 C26 60 13 72 20 92" stroke="rgba(60, 50, 40, 0.55)" stroke-width="1.5" fill="none" stroke-linecap="round"/>' +
+                    '</svg>';
+            }
+
+            // Bunting: a sagging rope with triangular celebration flags.
+            function buntingSvg(colors) {
+                const W = 1440, y0 = 8, sag = 2 * 46;
+                const ropeY = t => (1 - t) * (1 - t) * y0 + 2 * t * (1 - t) * (y0 + sag) + t * t * y0;
+                let flags = '';
+                const n = 17;
+                for (let i = 1; i < n; i++) {
+                    const t = i / n;
+                    const x = t * W;
+                    const y = ropeY(t);
+                    const c = colors[i % colors.length];
+                    flags += '<path d="M' + (x - 12) + ' ' + y + ' L' + (x + 12) + ' ' + y + ' L' + x + ' ' + (y + 24) + ' Z" fill="' + c + '"/>';
+                }
+                return '<svg viewBox="0 0 1440 92" preserveAspectRatio="none" aria-hidden="true">' +
+                    '<path d="M0 ' + y0 + ' Q720 ' + (y0 + sag) + ' 1440 ' + y0 + '" stroke="rgba(80, 60, 30, 0.5)" stroke-width="2.4" fill="none"/>' +
+                    flags + '</svg>';
+            }
+
+            const MOSQUE_SVG = '<svg viewBox="0 0 1440 220" preserveAspectRatio="none" aria-hidden="true">' +
+                '<path fill="currentColor" d="M0 220 L0 176 C160 160 320 168 480 172 C640 176 800 170 960 172 C1120 174 1280 164 1440 172 L1440 220 Z"/>' +
+                '<g fill="currentColor">' +
+                '<path d="M546 220 L546 96 L556 84 L566 96 L566 220 Z"/>' +
+                '<ellipse cx="556" cy="82" rx="14" ry="9"/>' +
+                '<path d="M556 66 L556 74 M552 70 L560 70"/>' +
+                '<path d="M874 220 L874 96 L884 84 L894 96 L894 220 Z"/>' +
+                '<ellipse cx="884" cy="82" rx="14" ry="9"/>' +
+                '<path d="M884 66 L884 74 M880 70 L888 70"/>' +
+                '<rect x="576" y="150" width="288" height="70"/>' +
+                '<path d="M576 150 C576 108 640 100 660 76 C672 88 680 96 680 150 Z"/>' +
+                '<path d="M760 150 C760 108 824 100 844 76 C856 88 864 96 864 150 Z"/>' +
+                '<path d="M664 150 C664 96 700 88 720 60 C740 88 776 96 776 150 Z"/>' +
+                '<path d="M720 38 L720 56 M714 44 L726 44"/>' +
+                '<path d="M726 34 A7.5 7.5 0 1 0 733.5 43 A6 6 0 0 1 726 34 Z"/>' +
+                '</g>' +
+                '<g fill="rgba(255, 199, 90, 0.92)">' +
+                '<path d="M606 214 L606 196 A9 9 0 0 1 624 196 L624 214 Z"/>' +
+                '<path d="M816 214 L816 196 A9 9 0 0 1 834 196 L834 214 Z"/>' +
+                '<path d="M706 214 L706 188 A14 14 0 0 1 734 188 L734 214 Z"/>' +
+                '<circle cx="612" cy="164" r="3.4"/><circle cx="828" cy="164" r="3.4"/>' +
+                '</g>' +
+                '</svg>';
+
+            // White dove (Eid al-Adha): the bird silhouette with a soft outline.
+            function doveSvg() {
+                return '<svg viewBox="0 0 64 26" aria-hidden="true">' +
+                    '<path fill="#fbf8f1" stroke="rgba(110, 75, 35, 0.45)" stroke-width="1.2" d="M2 18 C13 4 25 5 31 14 L32 16 L33 14 C39 5 51 4 62 18 C51 10 41 11 34 20 L32 23 L30 20 C23 11 13 10 2 18 Z"/>' +
+                    '</svg>';
+            }
+
             function clearEffects() {
                 overlay.className = 'theme-effects';
                 overlay.innerHTML = '';
@@ -1826,6 +1932,152 @@
                 }
             }
 
+            function buildRamadan() {
+                // Glowing crescent moon.
+                const crescent = document.createElement('div');
+                crescent.className = 'fx-crescent';
+                crescent.innerHTML = crescentSvg('ram', '#fff3cd', '#f2ce76', '#c89230');
+                overlay.appendChild(crescent);
+
+                // Hanging lanterns on cords of varied length, gently swaying.
+                const metalPairs = [['#e3b04b', '#8a5a13'], ['#d9a93e', '#7a4a0d'], ['#caa243', '#8a5a13'], ['#e3b04b', '#96702a']];
+                for (let i = 0; i < 6; i++) {
+                    const lantern = document.createElement('span');
+                    lantern.className = 'fx-lantern';
+                    lantern.style.setProperty('--x', (3 + i * 18 + rand(-5, 5)) + '%');
+                    lantern.style.setProperty('--top', '0vh');
+                    lantern.style.setProperty('--size', rand(44, 74) + 'px');
+                    lantern.style.setProperty('--dur', rand(4.8, 7.6) + 's');
+                    lantern.style.setProperty('--delay', (-rand(0, 6)) + 's');
+                    lantern.style.setProperty('--tilt', rand(2.4, 5.2) + 'deg');
+                    lantern.innerHTML = lanternSvg(metalPairs[i % metalPairs.length][0], metalPairs[i % metalPairs.length][1], rand(55, 145));
+                    overlay.appendChild(lantern);
+                }
+
+                // A calm, starry night.
+                addParticles(44, 'fx-star', () => ({
+                    x: rand(0, 100),
+                    top: rand(1, 78),
+                    size: rand(1.4, 4),
+                    dur: rand(2.6, 7),
+                    delay: rand(0, 6),
+                    op: rand(0.3, 0.9)
+                }));
+
+                // Golden dust drifting through the lantern light.
+                addParticles(12, 'fx-dust', () => ({
+                    x: rand(0, 100),
+                    size: rand(2.5, 6),
+                    dur: rand(13, 25),
+                    delay: rand(0, 20),
+                    drift: rand(-8, 9),
+                    op: rand(0.2, 0.6),
+                    glow: 'rgba(240, 199, 94, 0.8)'
+                }));
+            }
+
+            function buildEidFitr() {
+                // A rope of celebration flags across the top.
+                const bunting = document.createElement('div');
+                bunting.className = 'fx-bunting';
+                bunting.innerHTML = buntingSvg(['#009384', '#e8b64c', '#e2725b', '#7e57c2', '#f5f0e1']);
+                overlay.appendChild(bunting);
+
+                // Balloons drifting up into the morning sky.
+                const balloonPairs = [
+                    ['#5ecfbe', '#009384'],
+                    ['#ffe29a', '#e8b64c'],
+                    ['#ff9e8a', '#e2725b'],
+                    ['#b39ddb', '#7e57c2'],
+                    ['#9edbe8', '#2196a6']
+                ];
+                for (let i = 0; i < 8; i++) {
+                    const balloon = document.createElement('span');
+                    balloon.className = 'fx-balloon';
+                    balloon.style.setProperty('--x', rand(2, 96) + '%');
+                    balloon.style.setProperty('--size', rand(26, 48) + 'px');
+                    balloon.style.setProperty('--dur', rand(15, 26) + 's');
+                    balloon.style.setProperty('--delay', (-rand(0, 22)) + 's');
+                    balloon.style.setProperty('--drift', rand(-8, 8) + 'vw');
+                    balloon.style.setProperty('--op', rand(0.55, 0.95));
+                    balloon.innerHTML = balloonSvg(balloonPairs[i % balloonPairs.length][0], balloonPairs[i % balloonPairs.length][1]);
+                    overlay.appendChild(balloon);
+                }
+
+                // Confetti fluttering down over the celebration.
+                const confettiColors = ['#009384', '#e8b64c', '#e2725b', '#7e57c2', '#f2d5a0', '#4db6ac'];
+                addParticles(22, 'fx-confetti', () => ({
+                    x: rand(-2, 100),
+                    size: rand(7, 13),
+                    dur: rand(8, 16),
+                    delay: rand(0, 14),
+                    drift: rand(-9, 10),
+                    op: rand(0.6, 0.95),
+                    colorA: pick(confettiColors),
+                    colorB: pick(confettiColors)
+                }));
+
+                // Sparkling light in the festive air.
+                addParticles(14, 'fx-dust', () => ({
+                    x: rand(0, 100),
+                    size: rand(2.5, 5.5),
+                    dur: rand(12, 22),
+                    delay: rand(0, 18),
+                    drift: rand(-8, 8),
+                    op: rand(0.2, 0.6),
+                    glow: 'rgba(232, 182, 76, 0.85)'
+                }));
+            }
+
+            function buildAdha() {
+                // Warm sunrise glow on the horizon.
+                const sun = document.createElement('div');
+                sun.className = 'fx-sun';
+                overlay.appendChild(sun);
+
+                // A mosque silhouette against the dawn.
+                const skyline = document.createElement('div');
+                skyline.className = 'fx-skyline fx-skyline-mosque';
+                skyline.innerHTML = MOSQUE_SVG;
+                overlay.appendChild(skyline);
+
+                // White doves circling peacefully.
+                for (let i = 0; i < 3; i++) {
+                    const dove = document.createElement('span');
+                    dove.className = 'fx-dove';
+                    dove.style.setProperty('--top', rand(10, 44) + 'vh');
+                    dove.style.setProperty('--size', rand(24, 38) + 'px');
+                    dove.style.setProperty('--dur', rand(28, 42) + 's');
+                    dove.style.setProperty('--delay', (-rand(0, 32)) + 's');
+                    dove.style.setProperty('--rise', rand(-45, 45) + 'px');
+                    dove.innerHTML = doveSvg();
+                    overlay.appendChild(dove);
+                }
+
+                // Soft clouds crossing the warm sky.
+                for (let i = 0; i < 3; i++) {
+                    const cloud = document.createElement('span');
+                    cloud.className = 'fx-cloud';
+                    cloud.style.setProperty('--top', rand(6, 30) + 'vh');
+                    cloud.style.setProperty('--w', rand(26, 44) + 'vw');
+                    cloud.style.setProperty('--dur', rand(60, 95) + 's');
+                    cloud.style.setProperty('--delay', (-rand(0, 60)) + 's');
+                    cloud.style.setProperty('--op', rand(0.5, 0.8));
+                    overlay.appendChild(cloud);
+                }
+
+                // Sand-gold motes in the morning light.
+                addParticles(14, 'fx-dust', () => ({
+                    x: rand(0, 100),
+                    size: rand(2.5, 6),
+                    dur: rand(12, 24),
+                    delay: rand(0, 20),
+                    drift: rand(-8, 9),
+                    op: rand(0.2, 0.55),
+                    glow: 'rgba(251, 191, 36, 0.8)'
+                }));
+            }
+
             function sync() {
                 const theme = document.body.getAttribute('data-theme') || 'default';
                 const disabled = document.body.classList.contains('no-animations') || reduceMotion.matches;
@@ -1845,6 +2097,9 @@
                     case 'winter': buildWinter(); break;
                     case 'spring': buildSpring(); break;
                     case 'summer': buildSummer(); break;
+                    case 'ramadan': buildRamadan(); break;
+                    case 'eid-fitr': buildEidFitr(); break;
+                    case 'adha': buildAdha(); break;
                 }
             }
 

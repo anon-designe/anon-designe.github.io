@@ -1501,6 +1501,75 @@ a {
     --theme-social-glow: rgba(255, 152, 0, 0.4);
 }
 
+[data-theme="ramadan"] {
+    --theme-primary: #f0c75e;
+    --theme-secondary: #ffe29a;
+    --theme-accent: #d4af37;
+    --theme-bg: #171f38;
+    --theme-bg-gradient: radial-gradient(ellipse at 80% 0%, rgba(255, 236, 179, 0.15), transparent 45%), radial-gradient(ellipse at 10% 40%, rgba(126, 87, 194, 0.2), transparent 55%), linear-gradient(140deg, #12182e 0%, #1c2340 48%, #131b33 100%);
+    --theme-text: #f3ecdd;
+    --theme-text-muted: #b3aecb;
+    --theme-card-bg: rgba(28, 35, 64, 0.85);
+    --theme-card-border: rgba(240, 199, 94, 0.3);
+    --theme-shadow: rgba(0, 0, 0, 0.4);
+    --theme-shadow-hover: rgba(240, 199, 94, 0.3);
+    --theme-navbar-bg: linear-gradient(135deg, rgba(23, 31, 56, 0.85) 0%, rgba(18, 24, 46, 0.75) 100%);
+    --theme-scrollbar-thumb: linear-gradient(180deg, #f0c75e 0%, #ffe29a 50%, #d4af37 100%);
+    --theme-typewriter-border: #f0c75e;
+    --theme-wave-1: rgba(240, 199, 94, 0.12);
+    --theme-wave-2: rgba(255, 226, 154, 0.16);
+    --theme-wave-3: rgba(212, 175, 55, 0.22);
+    --theme-wave-4: rgba(255, 255, 255, 0.05);
+    --theme-footer-bg: #d4af37;
+    --theme-social-glow: rgba(240, 199, 94, 0.45);
+}
+
+[data-theme="eid-fitr"] {
+    --theme-primary: #009384;
+    --theme-secondary: #26a69a;
+    --theme-accent: #e8b64c;
+    --theme-bg: #e9f6f2;
+    --theme-bg-gradient: radial-gradient(ellipse at 84% 0%, rgba(255, 224, 130, 0.35), transparent 50%), radial-gradient(ellipse at 8% 60%, rgba(38, 166, 154, 0.16), transparent 55%), linear-gradient(135deg, #f2fbf8 0%, #e2f3ee 50%, #f7f0dc 100%);
+    --theme-text: #0e4d46;
+    --theme-text-muted: #4f7a72;
+    --theme-card-bg: rgba(233, 246, 242, 0.95);
+    --theme-card-border: rgba(0, 147, 132, 0.22);
+    --theme-shadow: rgba(4, 66, 59, 0.1);
+    --theme-shadow-hover: rgba(0, 147, 132, 0.22);
+    --theme-navbar-bg: linear-gradient(135deg, rgba(233, 246, 242, 0.85) 0%, rgba(222, 240, 235, 0.75) 100%);
+    --theme-scrollbar-thumb: linear-gradient(180deg, #009384 0%, #26a69a 50%, #e8b64c 100%);
+    --theme-typewriter-border: #009384;
+    --theme-wave-1: rgba(0, 147, 132, 0.1);
+    --theme-wave-2: rgba(38, 166, 154, 0.15);
+    --theme-wave-3: rgba(232, 182, 76, 0.2);
+    --theme-wave-4: rgba(255, 255, 255, 0.4);
+    --theme-footer-bg: #009384;
+    --theme-social-glow: rgba(0, 147, 132, 0.4);
+}
+
+[data-theme="adha"] {
+    --theme-primary: #b45309;
+    --theme-secondary: #d97706;
+    --theme-accent: #fbbf24;
+    --theme-bg: #faf0e0;
+    --theme-bg-gradient: radial-gradient(ellipse at 85% 0%, rgba(251, 191, 36, 0.28), transparent 52%), radial-gradient(ellipse at 10% 70%, rgba(180, 83, 9, 0.1), transparent 55%), linear-gradient(135deg, #fdf8ef 0%, #f8ecd8 50%, #f3ddc0 100%);
+    --theme-text: #5d3410;
+    --theme-text-muted: #92603a;
+    --theme-card-bg: rgba(250, 240, 224, 0.95);
+    --theme-card-border: rgba(180, 83, 9, 0.2);
+    --theme-shadow: rgba(93, 52, 16, 0.1);
+    --theme-shadow-hover: rgba(180, 83, 9, 0.2);
+    --theme-navbar-bg: linear-gradient(135deg, rgba(250, 240, 224, 0.85) 0%, rgba(243, 231, 210, 0.75) 100%);
+    --theme-scrollbar-thumb: linear-gradient(180deg, #b45309 0%, #d97706 50%, #fbbf24 100%);
+    --theme-typewriter-border: #b45309;
+    --theme-wave-1: rgba(180, 83, 9, 0.1);
+    --theme-wave-2: rgba(217, 119, 6, 0.14);
+    --theme-wave-3: rgba(251, 191, 36, 0.2);
+    --theme-wave-4: rgba(255, 255, 255, 0.4);
+    --theme-footer-bg: #b45309;
+    --theme-social-glow: rgba(180, 83, 9, 0.4);
+}
+
 .theme-select {
     flex-shrink: 0;
     width: 140px;
@@ -1532,59 +1601,28 @@ a {
 }
 .dark-theme .theme-select:hover { border-color: rgba(13, 202, 240, 0.4); }
 
-/* Theme-specific backgrounds and components */
-[data-theme="halloween"] body { background: var(--theme-bg-gradient); }
-[data-theme="autumn"] body { background: var(--theme-bg-gradient); }
-[data-theme="winter"] body { background: var(--theme-bg-gradient); }
-[data-theme="spring"] body { background: var(--theme-bg-gradient); }
-[data-theme="summer"] body { background: var(--theme-bg-gradient); }
+/* Theme-specific backgrounds and components.
+   Attribute-presence selectors: they apply to every seasonal theme,
+   since a palette always defines the full --theme-* token set. */
+body[data-theme] { background: var(--theme-bg-gradient); }
 
-[data-theme="halloween"] .hero-section,
-[data-theme="autumn"] .hero-section,
-[data-theme="winter"] .hero-section,
-[data-theme="spring"] .hero-section,
-[data-theme="summer"] .hero-section { background: var(--theme-bg-gradient); }
+body[data-theme] .hero-section { background: var(--theme-bg-gradient); }
 
-[data-theme="halloween"] .hero-bottom-fade { background: linear-gradient(to top, var(--theme-bg) 0%, transparent 100%); }
-[data-theme="autumn"] .hero-bottom-fade { background: linear-gradient(to top, var(--theme-bg) 0%, transparent 100%); }
-[data-theme="winter"] .hero-bottom-fade { background: linear-gradient(to top, var(--theme-bg) 0%, transparent 100%); }
-[data-theme="spring"] .hero-bottom-fade { background: linear-gradient(to top, var(--theme-bg) 0%, transparent 100%); }
-[data-theme="summer"] .hero-bottom-fade { background: linear-gradient(to top, var(--theme-bg) 0%, transparent 100%); }
+body[data-theme] .hero-bottom-fade { background: linear-gradient(to top, var(--theme-bg) 0%, transparent 100%); }
 
 /* ===== THEME OVERRIDES FOR KEY ELEMENTS ===== */
 
 /* Navbar */
-[data-theme="halloween"] .navbar,
-[data-theme="autumn"] .navbar,
-[data-theme="winter"] .navbar,
-[data-theme="spring"] .navbar,
-[data-theme="summer"] .navbar { background: var(--theme-navbar-bg) !important; }
-
-[data-theme="halloween"] .navbar.scrolled,
-[data-theme="autumn"] .navbar.scrolled,
-[data-theme="winter"] .navbar.scrolled,
-[data-theme="spring"] .navbar.scrolled,
-[data-theme="summer"] .navbar.scrolled { background: var(--theme-navbar-bg) !important; }
+body[data-theme] .navbar,
+body[data-theme] .navbar.scrolled { background: var(--theme-navbar-bg) !important; }
 
 /* Footer */
-[data-theme="halloween"] footer,
-[data-theme="autumn"] footer,
-[data-theme="winter"] footer,
-[data-theme="spring"] footer,
-[data-theme="summer"] footer { background: var(--theme-footer-bg) !important; }
+body[data-theme] footer { background: var(--theme-footer-bg) !important; }
 
 /* Scrollbar */
-[data-theme="halloween"] ::-webkit-scrollbar-thumb,
-[data-theme="autumn"] ::-webkit-scrollbar-thumb,
-[data-theme="winter"] ::-webkit-scrollbar-thumb,
-[data-theme="spring"] ::-webkit-scrollbar-thumb,
-[data-theme="summer"] ::-webkit-scrollbar-thumb { background: var(--theme-scrollbar-thumb) !important; }
+body[data-theme] ::-webkit-scrollbar-thumb { background: var(--theme-scrollbar-thumb) !important; }
 
-[data-theme="halloween"] ::-webkit-scrollbar-track,
-[data-theme="autumn"] ::-webkit-scrollbar-track,
-[data-theme="winter"] ::-webkit-scrollbar-track,
-[data-theme="spring"] ::-webkit-scrollbar-track,
-[data-theme="summer"] ::-webkit-scrollbar-track { background: var(--theme-bg) !important; }
+body[data-theme] ::-webkit-scrollbar-track { background: var(--theme-bg) !important; }
 
 /* Hero waves */
 [data-theme="winter"] .hero-waves .waves use:nth-child(1) { fill: rgba(79, 195, 247, 0.15) !important; }
@@ -1593,69 +1631,29 @@ a {
 [data-theme="winter"] .hero-waves .waves use:nth-child(4) { fill: rgba(255, 255, 255, 0.5) !important; }
 
 /* Divider borders */
-[data-theme="halloween"] .divider,
-[data-theme="autumn"] .divider,
-[data-theme="winter"] .divider,
-[data-theme="spring"] .divider,
-[data-theme="summer"] .divider { border-bottom-color: var(--theme-card-border) !important; }
+body[data-theme] .divider { border-bottom-color: var(--theme-card-border) !important; }
 
 /* Progress bars */
-[data-theme="halloween"] .progress-bar.bg-info,
-[data-theme="autumn"] .progress-bar.bg-info,
-[data-theme="winter"] .progress-bar.bg-info,
-[data-theme="spring"] .progress-bar.bg-info,
-[data-theme="summer"] .progress-bar.bg-info { background: linear-gradient(45deg, var(--theme-primary), var(--theme-secondary)) !important; }
+body[data-theme] .progress-bar.bg-info { background: linear-gradient(45deg, var(--theme-primary), var(--theme-secondary)) !important; }
 
 /* Hero buttons */
-[data-theme="halloween"] #hero .btn-outline-info,
-[data-theme="autumn"] #hero .btn-outline-info,
-[data-theme="winter"] #hero .btn-outline-info,
-[data-theme="spring"] #hero .btn-outline-info,
-[data-theme="summer"] #hero .btn-outline-info { border-color: var(--theme-primary) !important; color: var(--theme-primary) !important; }
+body[data-theme] #hero .btn-outline-info { border-color: var(--theme-primary) !important; color: var(--theme-primary) !important; }
 
-[data-theme="halloween"] #hero .btn-info,
-[data-theme="autumn"] #hero .btn-info,
-[data-theme="winter"] #hero .btn-info,
-[data-theme="spring"] #hero .btn-info,
-[data-theme="summer"] #hero .btn-info { background: var(--theme-primary) !important; border-color: var(--theme-primary) !important; }
+body[data-theme] #hero .btn-info { background: var(--theme-primary) !important; border-color: var(--theme-primary) !important; }
 
 /* Section title gradient */
-[data-theme="halloween"] .intro-section h1,
-[data-theme="autumn"] .intro-section h1,
-[data-theme="winter"] .intro-section h1,
-[data-theme="spring"] .intro-section h1,
-[data-theme="summer"] .intro-section h1 { background: linear-gradient(-45deg, var(--theme-primary), var(--theme-secondary), var(--theme-accent), var(--theme-primary)) !important; }
+body[data-theme] .intro-section h1 { background: linear-gradient(-45deg, var(--theme-primary), var(--theme-secondary), var(--theme-accent), var(--theme-primary)) !important; }
 
 /* Card hover effects */
-[data-theme="halloween"] #work .border-hover:hover,
-[data-theme="halloween"] #Models .border-hover:hover,
-[data-theme="halloween"] #services .service:hover,
-[data-theme="autumn"] #work .border-hover:hover,
-[data-theme="autumn"] #Models .border-hover:hover,
-[data-theme="autumn"] #services .service:hover,
-[data-theme="winter"] #work .border-hover:hover,
-[data-theme="winter"] #Models .border-hover:hover,
-[data-theme="winter"] #services .service:hover,
-[data-theme="spring"] #work .border-hover:hover,
-[data-theme="spring"] #Models .border-hover:hover,
-[data-theme="spring"] #services .service:hover,
-[data-theme="summer"] #work .border-hover:hover,
-[data-theme="summer"] #Models .border-hover:hover,
-[data-theme="summer"] #services .service:hover { box-shadow: 0 20px 40px var(--theme-shadow-hover) !important; }
+body[data-theme] #work .border-hover:hover,
+body[data-theme] #Models .border-hover:hover,
+body[data-theme] #services .service:hover { box-shadow: 0 20px 40px var(--theme-shadow-hover) !important; }
 
 /* Social icon glow */
-[data-theme="halloween"] .social-icon,
-[data-theme="autumn"] .social-icon,
-[data-theme="winter"] .social-icon,
-[data-theme="spring"] .social-icon,
-[data-theme="summer"] .social-icon { box-shadow: 0 8px 25px var(--theme-social-glow), 0 0 0 1px rgba(255, 255, 255, 0.2) !important; }
+body[data-theme] .social-icon { box-shadow: 0 8px 25px var(--theme-social-glow), 0 0 0 1px rgba(255, 255, 255, 0.2) !important; }
 
 /* Settings menu */
-[data-theme="halloween"] .settings-menu,
-[data-theme="autumn"] .settings-menu,
-[data-theme="winter"] .settings-menu,
-[data-theme="spring"] .settings-menu,
-[data-theme="summer"] .settings-menu { background: var(--theme-card-bg) !important; }
+body[data-theme] .settings-menu { background: var(--theme-card-bg) !important; }
 
 /* Dark Theme Styles */
 .dark-theme {
@@ -4764,6 +4762,51 @@ html[dir="rtl"] footer .footer-brand {
     --season-icon: "☀️";
 }
 
+[data-theme="ramadan"] {
+    --theme-nav-text: #cfc4e4;
+    --theme-brand-bg: linear-gradient(135deg, rgba(240, 199, 94, 0.16), rgba(126, 87, 194, 0.16));
+    --theme-brand-border: rgba(240, 199, 94, 0.4);
+    --theme-icon-bg: linear-gradient(135deg, rgba(240, 199, 94, 0.28), rgba(126, 87, 194, 0.26));
+    --theme-icon-fg: #f0d796;
+    --theme-icon-border: rgba(240, 199, 94, 0.55);
+    --theme-icon-glow: rgba(240, 199, 94, 0.32);
+    --theme-badge-bg: rgba(240, 199, 94, 0.14);
+    --theme-badge-fg: #f0d796;
+    --theme-badge-border: rgba(240, 199, 94, 0.4);
+    --theme-on-primary: #241a05;
+    --season-icon: "🌙";
+}
+
+[data-theme="eid-fitr"] {
+    --theme-nav-text: #2e5a53;
+    --theme-brand-bg: linear-gradient(135deg, rgba(0, 147, 132, 0.14), rgba(232, 182, 76, 0.18));
+    --theme-brand-border: rgba(0, 147, 132, 0.32);
+    --theme-icon-bg: linear-gradient(135deg, rgba(0, 147, 132, 0.22), rgba(232, 182, 76, 0.3));
+    --theme-icon-fg: #046d60;
+    --theme-icon-border: rgba(0, 147, 132, 0.4);
+    --theme-icon-glow: rgba(0, 147, 132, 0.26);
+    --theme-badge-bg: rgba(0, 147, 132, 0.12);
+    --theme-badge-fg: #075e54;
+    --theme-badge-border: rgba(0, 147, 132, 0.3);
+    --theme-on-primary: #ffffff;
+    --season-icon: "🎉";
+}
+
+[data-theme="adha"] {
+    --theme-nav-text: #6b4423;
+    --theme-brand-bg: linear-gradient(135deg, rgba(180, 83, 9, 0.13), rgba(251, 191, 36, 0.2));
+    --theme-brand-border: rgba(180, 83, 9, 0.3);
+    --theme-icon-bg: linear-gradient(135deg, rgba(180, 83, 9, 0.2), rgba(251, 191, 36, 0.3));
+    --theme-icon-fg: #9a4d07;
+    --theme-icon-border: rgba(180, 83, 9, 0.35);
+    --theme-icon-glow: rgba(217, 119, 6, 0.25);
+    --theme-badge-bg: rgba(180, 83, 9, 0.12);
+    --theme-badge-fg: #8a4106;
+    --theme-badge-border: rgba(180, 83, 9, 0.28);
+    --theme-on-primary: #ffffff;
+    --season-icon: "🐑";
+}
+
 /* =========================================================
    SEASONAL THEME POLISH - LAYOUT & COMPONENTS
    ========================================================= */
@@ -4807,6 +4850,12 @@ body[data-theme] #hero .hero-subtitle::before {
 [data-theme="halloween"] #hero h1 {
     text-shadow:
         0 0 22px rgba(255, 122, 50, 0.4),
+        0 10px 34px rgba(0, 0, 0, 0.55);
+}
+
+body[data-theme="ramadan"] #hero h1 {
+    text-shadow:
+        0 0 26px rgba(240, 199, 94, 0.35),
         0 10px 34px rgba(0, 0, 0, 0.55);
 }
 
@@ -5256,6 +5305,15 @@ body[data-theme="halloween"] .theme-select option {
     color: #f4e5d4;
 }
 
+body[data-theme="ramadan"] .theme-select {
+    color-scheme: dark;
+}
+
+body[data-theme="ramadan"] .theme-select option {
+    background: #1c2340;
+    color: #f3ecdd;
+}
+
 body[data-theme] .toggle-switch input:checked+.toggle-slider {
     background-color: var(--theme-primary) !important;
 }
@@ -5305,6 +5363,30 @@ body[data-theme] .toggle-switch input:checked+.toggle-slider {
     --theme-grain-opacity: 0.04;
 }
 
+[data-theme="ramadan"] {
+    --theme-card-pattern: radial-gradient(circle, rgba(240, 199, 94, 0.12) 0 1px, transparent 1.7px);
+    --theme-card-pattern-size: 26px 26px;
+    --theme-card-sheen: radial-gradient(120% 90% at 16% -10%, rgba(255, 236, 179, 0.12), transparent 58%);
+    --theme-card-hairline: rgba(240, 199, 94, 0.14);
+    --theme-grain-opacity: 0.07;
+}
+
+[data-theme="eid-fitr"] {
+    --theme-card-pattern: radial-gradient(circle, rgba(0, 147, 132, 0.1) 0 1.2px, transparent 1.9px);
+    --theme-card-pattern-size: 30px 30px;
+    --theme-card-sheen: radial-gradient(120% 90% at 18% -10%, rgba(255, 255, 255, 0.6), transparent 58%);
+    --theme-card-hairline: rgba(255, 255, 255, 0.55);
+    --theme-grain-opacity: 0.04;
+}
+
+[data-theme="adha"] {
+    --theme-card-pattern: repeating-linear-gradient(115deg, rgba(180, 83, 9, 0.05) 0 1px, transparent 1px 16px);
+    --theme-card-pattern-size: auto;
+    --theme-card-sheen: radial-gradient(120% 90% at 18% -10%, rgba(255, 255, 255, 0.6), transparent 58%);
+    --theme-card-hairline: rgba(255, 255, 255, 0.5);
+    --theme-grain-opacity: 0.045;
+}
+
 /* ---------- Richer atmospheric wash per season ---------- */
 .theme-effects.fx-halloween::before {
     background:
@@ -5339,6 +5421,26 @@ body[data-theme] .toggle-switch input:checked+.toggle-slider {
         radial-gradient(ellipse at 80% 5%, rgba(255, 213, 79, 0.26), transparent 52%),
         radial-gradient(ellipse at 6% 88%, rgba(255, 152, 0, 0.1), transparent 52%),
         radial-gradient(ellipse at 50% 50%, transparent 62%, rgba(255, 183, 77, 0.12) 100%);
+}
+
+.theme-effects.fx-ramadan::before {
+    background:
+        radial-gradient(ellipse at 82% 6%, rgba(255, 236, 179, 0.16), transparent 44%),
+        radial-gradient(ellipse at 14% 90%, rgba(126, 87, 194, 0.2), transparent 55%),
+        radial-gradient(ellipse at 50% 48%, transparent 60%, rgba(6, 8, 22, 0.42) 100%);
+}
+
+.theme-effects.fx-eid-fitr::before {
+    background:
+        radial-gradient(ellipse at 84% 0%, rgba(255, 224, 130, 0.22), transparent 48%),
+        radial-gradient(ellipse at 10% 88%, rgba(0, 147, 132, 0.1), transparent 55%),
+        repeating-linear-gradient(115deg, rgba(255, 255, 255, 0.1) 0 2px, transparent 2px 38px);
+}
+
+.theme-effects.fx-adha::before {
+    background:
+        radial-gradient(ellipse at 50% 108%, rgba(251, 191, 36, 0.24), transparent 56%),
+        radial-gradient(ellipse at 85% 5%, rgba(255, 243, 200, 0.32), transparent 46%);
 }
 
 /* Subtle photographic grain over the whole seasonal scene */
@@ -5971,7 +6073,7 @@ body[data-theme] .social-icon:hover {
     right: 0;
     bottom: 0;
     height: 24vh;
-    color: #050308;
+    color: var(--skyline-color, #050308);
     opacity: 0.94;
     pointer-events: none;
     -webkit-mask-image: linear-gradient(180deg, transparent 0%, #000 36%);
@@ -6034,6 +6136,214 @@ body[data-theme] .social-icon:hover {
 @media (max-width: 640px) {
     .fx-skyline {
         height: 18vh;
+    }
+}
+
+/* =========================================================
+   ISLAMIC SEASONS - RAMADAN, EID AL-FITR, EID AL-ADHA
+   ========================================================= */
+
+/* ---------- Ramadan crescent ---------- */
+.fx-crescent {
+    position: absolute;
+    top: 13vh;
+    right: 8vw;
+    width: clamp(92px, 12vw, 150px);
+    animation: fxCrescentFloat 9s ease-in-out infinite alternate;
+}
+
+.fx-crescent svg {
+    display: block;
+    width: 100%;
+    height: auto;
+    filter: drop-shadow(0 0 24px rgba(245, 214, 123, 0.5)) drop-shadow(0 0 70px rgba(245, 214, 123, 0.28));
+}
+
+@keyframes fxCrescentFloat {
+    from {
+        transform: translateY(0) rotate(-4deg);
+    }
+    to {
+        transform: translateY(12px) rotate(3deg);
+    }
+}
+
+/* ---------- Ramadan lanterns ---------- */
+.fx-lantern {
+    position: absolute;
+    top: var(--top, -4vh);
+    left: var(--x, 10%);
+    width: var(--size, 54px);
+    transform-origin: 50% 0;
+    animation: fxLanternSway var(--dur, 6s) ease-in-out var(--delay, 0s) infinite alternate;
+}
+
+.fx-lantern svg {
+    display: block;
+    width: 100%;
+    height: auto;
+    overflow: visible;
+    filter: drop-shadow(0 8px 18px rgba(255, 176, 60, 0.35));
+}
+
+.fx-lantern .glass {
+    animation: fxLanternGlow 2.8s ease-in-out infinite alternate;
+}
+
+@keyframes fxLanternSway {
+    from {
+        transform: rotate(calc(var(--tilt, 3deg) * -1));
+    }
+    to {
+        transform: rotate(var(--tilt, 3deg));
+    }
+}
+
+@keyframes fxLanternGlow {
+    from {
+        opacity: 0.72;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+/* ---------- Eid al-Fitr bunting ---------- */
+.fx-bunting {
+    position: absolute;
+    top: -6px;
+    left: 0;
+    width: 100%;
+    transform-origin: 50% 0;
+    animation: fxBuntingSway 7s ease-in-out infinite alternate;
+}
+
+.fx-bunting svg {
+    display: block;
+    width: 100%;
+    height: auto;
+}
+
+@keyframes fxBuntingSway {
+    from {
+        transform: rotate(-0.4deg) translateY(0);
+    }
+    to {
+        transform: rotate(0.4deg) translateY(3px);
+    }
+}
+
+/* ---------- Eid al-Fitr balloons ---------- */
+.fx-balloon {
+    position: absolute;
+    bottom: -16vh;
+    left: var(--x, 50%);
+    width: var(--size, 34px);
+    opacity: 0;
+    animation: fxBalloonRise var(--dur, 18s) linear var(--delay, 0s) infinite;
+    will-change: transform, opacity;
+}
+
+.fx-balloon svg {
+    display: block;
+    width: 100%;
+    height: auto;
+    overflow: visible;
+    filter: drop-shadow(0 6px 12px rgba(60, 50, 40, 0.25));
+}
+
+@keyframes fxBalloonRise {
+    0% {
+        transform: translate3d(0, 0, 0) rotate(-4deg);
+        opacity: 0;
+    }
+    8% {
+        opacity: var(--op, 0.9);
+    }
+    48% {
+        transform: translate3d(calc(var(--drift) * 0.6), -55vh, 0) rotate(5deg);
+    }
+    90% {
+        opacity: var(--op, 0.9);
+    }
+    100% {
+        transform: translate3d(calc(var(--drift) * -0.4), -118vh, 0) rotate(-4deg);
+        opacity: 0;
+    }
+}
+
+/* ---------- Eid al-Fitr confetti ---------- */
+.fx-confetti {
+    height: calc(var(--size, 10px) * 0.62);
+    border-radius: 1.5px;
+    background: linear-gradient(135deg, var(--color-a, #009384), var(--color-b, #e8b64c));
+    box-shadow: 0 1px 3px rgba(60, 40, 20, 0.2);
+    animation-name: fxConfettiFall;
+}
+
+@keyframes fxConfettiFall {
+    0% {
+        transform: translate3d(0, -10vh, 0) rotate3d(1, 1, 0, 0deg);
+        opacity: 0;
+    }
+    6% {
+        opacity: var(--op, 0.9);
+    }
+    50% {
+        transform: translate3d(calc(var(--drift) * 0.5), 50vh, 0) rotate3d(1, 1, 0, 380deg);
+    }
+    94% {
+        opacity: var(--op, 0.9);
+    }
+    100% {
+        transform: translate3d(calc(var(--drift) * -0.3), 112vh, 0) rotate3d(1, 1, 0, 740deg);
+        opacity: 0;
+    }
+}
+
+/* ---------- Eid al-Adha mosque skyline ---------- */
+.fx-skyline-mosque {
+    color: #4a2c14;
+    opacity: 0.9;
+    -webkit-mask-image: linear-gradient(180deg, transparent 0%, #000 16%);
+    mask-image: linear-gradient(180deg, transparent 0%, #000 16%);
+}
+
+/* ---------- Eid al-Adha doves ---------- */
+.fx-dove {
+    position: absolute;
+    top: var(--top, 20vh);
+    left: -6vw;
+    width: var(--size, 30px);
+    opacity: 0;
+    animation: fxBatFly var(--dur, 30s) linear infinite;
+    animation-delay: var(--delay, 0s);
+    will-change: transform, opacity;
+}
+
+.fx-dove svg {
+    display: block;
+    width: 100%;
+    height: auto;
+    overflow: visible;
+    transform-origin: 50% 62%;
+    animation: fxBirdFlap 1.1s ease-in-out infinite alternate;
+    filter: drop-shadow(0 3px 6px rgba(90, 60, 30, 0.35));
+}
+
+@media (max-width: 640px) {
+    .fx-crescent {
+        width: 74px;
+        top: 15vh;
+        right: 5vw;
+    }
+
+    .fx-lantern {
+        width: calc(var(--size, 54px) * 0.8);
+    }
+
+    .fx-bunting {
+        opacity: 0.9;
     }
 }
 
