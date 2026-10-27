@@ -1473,6 +1473,85 @@
                 '<path d="M28.5 8.2 26 3.4l4.6 2.2zM35.5 8.2 38 3.4l-4.6 2.2z"/>' +
                 '</svg>';
 
+            let gidCounter = 0;
+
+            const LEAF_SPECIES = {
+                maple: {
+                    body: 'M50 3 C53 16 60 19 69 15 C65 25 67 30 76 28 C71 38 73 44 83 45 C74 52 74 58 82 63 C72 64 68 70 70 80 C62 74 56 76 54 87 L50 97 L46 87 C44 76 38 74 30 80 C32 70 28 64 18 63 C26 58 26 52 17 45 C27 44 29 38 24 28 C33 30 35 25 31 15 C40 19 47 16 50 3 Z',
+                    veins: 'M50 30 L34 22 M50 30 L66 22 M50 52 L30 42 M50 52 L70 42 M50 72 L34 64 M50 72 L66 64'
+                },
+                oak: {
+                    body: 'M50 6 C60 12 62 20 57 27 C68 25 74 33 68 41 C79 43 82 53 71 57 C80 64 77 74 66 73 C71 83 62 91 54 85 C53 93 47 93 46 85 C38 91 29 83 34 73 C23 74 20 64 29 57 C18 53 21 43 32 41 C26 33 32 25 43 27 C38 20 40 12 50 6 Z',
+                    veins: 'M50 30 L38 24 M50 30 L62 24 M50 50 L34 42 M50 50 L66 42 M50 70 L38 62 M50 70 L62 62'
+                },
+                birch: {
+                    body: 'M50 6 C72 20 88 44 78 64 C71 78 59 86 50 94 C41 86 29 78 22 64 C12 44 28 20 50 6 Z',
+                    veins: 'M50 28 L38 24 M50 28 L62 24 M50 48 L34 42 M50 48 L66 42 M50 68 L38 60 M50 68 L62 60'
+                },
+                elm: {
+                    body: 'M50 4 C66 16 78 34 76 52 C74 70 62 84 50 96 C40 84 30 68 30 50 C30 32 38 16 50 4 Z',
+                    veins: 'M50 26 L40 20 M50 26 L60 20 M50 46 L36 38 M50 46 L64 38 M50 66 L40 58 M50 66 L60 58'
+                }
+            };
+
+            function leafSvg(species, colorA, colorB) {
+                const id = 'leaf-grad-' + (++gidCounter);
+                const p = LEAF_SPECIES[species] || LEAF_SPECIES.maple;
+                return '<svg viewBox="0 0 100 100" aria-hidden="true">' +
+                    '<defs><linearGradient id="' + id + '" x1="0" y1="0" x2="1" y2="1">' +
+                    '<stop offset="0" stop-color="' + colorA + '"/><stop offset="1" stop-color="' + colorB + '"/>' +
+                    '</linearGradient></defs>' +
+                    '<path fill="url(#' + id + ')" d="' + p.body + '"/>' +
+                    '<path d="M50 10 L50 92" stroke="rgba(70, 32, 4, 0.4)" stroke-width="2.4" fill="none" stroke-linecap="round"/>' +
+                    '<path d="' + p.veins + '" stroke="rgba(70, 32, 4, 0.26)" stroke-width="1.6" fill="none" stroke-linecap="round"/>' +
+                    '</svg>';
+            }
+
+            function snowCrystalSvg(variant) {
+                const branch = variant === 0
+                    ? 'M50 22 L40 14 M50 22 L60 14 M50 36 L41 29 M50 36 L59 29'
+                    : 'M50 18 L42 12 M50 18 L58 12 M50 34 L42 27 M50 34 L58 27 M50 46 L43 40 M50 46 L57 40';
+                let arms = '';
+                for (let a = 0; a < 6; a++) {
+                    arms += '<g transform="rotate(' + (a * 60) + ' 50 50)">' +
+                        '<path d="M50 50 L50 8 ' + branch + '"/>' +
+                        '</g>';
+                }
+                return '<svg viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="4.5" stroke-linecap="round" aria-hidden="true">' + arms + '</svg>';
+            }
+
+            const BUTTERFLY_SVG = '<svg viewBox="0 0 64 52" aria-hidden="true">' +
+                '<g class="wing wing-l" fill="currentColor">' +
+                '<path d="M30 26 C16 8 2 12 5 24 C7 33 19 37 30 31 Z"/>' +
+                '<path d="M30 32 C20 34 12 42 19 46 C25 48 30 40 30 33 Z"/>' +
+                '</g>' +
+                '<g class="wing wing-r" fill="currentColor">' +
+                '<path d="M34 26 C48 8 62 12 59 24 C57 33 45 37 34 31 Z"/>' +
+                '<path d="M34 32 C44 34 52 42 45 46 C39 48 34 40 34 33 Z"/>' +
+                '</g>' +
+                '<ellipse cx="32" cy="28" rx="2.6" ry="11" fill="rgba(40, 20, 30, 0.85)"/>' +
+                '<path d="M30 18 C28 14 26 12 24 10 M34 18 C36 14 38 12 40 10" stroke="rgba(40, 20, 30, 0.85)" stroke-width="1.4" fill="none" stroke-linecap="round"/>' +
+                '</svg>';
+
+            const BIRD_SVG = '<svg viewBox="0 0 64 26" aria-hidden="true">' +
+                '<path fill="currentColor" d="M2 18 C13 4 25 5 31 14 L32 16 L33 14 C39 5 51 4 62 18 C51 10 41 11 34 20 L32 23 L30 20 C23 11 13 10 2 18 Z"/>' +
+                '</svg>';
+
+            const SKYLINE_SVG = '<svg viewBox="0 0 1440 220" preserveAspectRatio="none" aria-hidden="true">' +
+                '<path fill="currentColor" d="M0 220 L0 150 C120 128 260 118 420 130 C560 140 700 122 840 128 C1000 134 1180 120 1440 142 L1440 220 Z"/>' +
+                '<path fill="currentColor" d="M216 220 L218 130 C210 100 196 78 178 62 C198 76 212 94 220 116 C222 88 232 66 250 50 C236 72 228 96 226 122 C238 104 254 94 272 92 C254 102 240 116 232 134 C244 128 258 128 270 132 C252 136 238 144 230 156 L228 220 Z"/>' +
+                '<g fill="currentColor">' +
+                '<path d="M958 220 L958 118 L964 108 L970 118 L970 220 Z"/>' +
+                '<path d="M994 220 L994 118 L1000 108 L1006 118 L1006 220 Z"/>' +
+                '<path d="M1030 220 L1030 118 L1036 108 L1042 118 L1042 220 Z"/>' +
+                '<path d="M1066 220 L1066 118 L1072 108 L1078 118 L1078 220 Z"/>' +
+                '<path d="M950 126 L1086 118 L1086 126 L950 134 Z"/>' +
+                '<path d="M950 146 L1086 138 L1086 146 L950 154 Z"/>' +
+                '</g>' +
+                '<g fill="currentColor"><path d="M640 220 L640 130 L672 104 L704 130 L704 220 Z"/></g>' +
+                '<rect x="662" y="150" width="12" height="12" fill="rgba(255, 166, 64, 0.9)"/>' +
+                '</svg>';
+
             function clearEffects() {
                 overlay.className = 'theme-effects';
                 overlay.innerHTML = '';
@@ -1495,7 +1574,11 @@
                     if (o.colorA) el.style.setProperty('--color-a', o.colorA);
                     if (o.colorB) el.style.setProperty('--color-b', o.colorB);
                     if (o.glow) el.style.setProperty('--glow', o.glow);
-                    if (text) el.textContent = pick(text);
+                    if (o.svg) {
+                        el.innerHTML = o.svg;
+                    } else if (text) {
+                        el.textContent = pick(text);
+                    }
                     frag.appendChild(el);
                 }
                 overlay.appendChild(frag);
@@ -1544,6 +1627,18 @@
                     overlay.appendChild(cloud);
                 });
 
+                // Silhouette horizon: hill, dead tree, fence and a lit cottage.
+                const skyline = document.createElement('div');
+                skyline.className = 'fx-skyline';
+                skyline.innerHTML = SKYLINE_SVG;
+                overlay.appendChild(skyline);
+
+                // An occasional shooting star.
+                const shooting = document.createElement('span');
+                shooting.className = 'fx-shooting';
+                shooting.style.setProperty('--delay', (-rand(2, 8)) + 's');
+                overlay.appendChild(shooting);
+
                 const fog = document.createElement('div');
                 fog.className = 'fx-fog';
                 overlay.appendChild(fog);
@@ -1563,9 +1658,10 @@
 
             function buildAutumn() {
                 const colors = ['#d35400', '#e67e22', '#f39c12', '#c0392b', '#b07d3a', '#f1c40f', '#a8451d', '#e0a030'];
-                const shapes = ['leaf-maple', 'leaf-oak', 'leaf-birch', 'leaf-elm'];
+                const speciesNames = ['maple', 'oak', 'birch', 'elm'];
                 addParticles(32, 'fx-leaf', () => {
-                    const size = rand(11, 26);
+                    const size = rand(14, 30);
+                    const species = pick(speciesNames);
                     return {
                         x: rand(-2, 100),
                         size: size,
@@ -1575,8 +1671,9 @@
                         op: rand(0.5, 0.95),
                         colorA: pick(colors),
                         colorB: pick(colors),
-                        variant: pick(shapes),
-                        blur: size < 15 ? rand(0.2, 0.8) : 0
+                        variant: 'leaf-' + species,
+                        svg: leafSvg(species, pick(colors), pick(colors)),
+                        blur: size < 18 ? rand(0.2, 0.8) : 0
                     };
                 });
 
@@ -1593,10 +1690,9 @@
             }
 
             function buildWinter() {
-                const flakes = ['❄', '❅', '❆'];
                 const colors = ['#4fc3f7', '#81d4fa', '#b3e5fc', '#ffffff'];
 
-                // Soft round flakes give depth behind the crystal glyphs.
+                // Soft round flakes give depth behind the crystals.
                 addParticles(28, 'fx-snow-dot', () => ({
                     x: rand(-2, 100),
                     size: rand(2.2, 5.8),
@@ -1609,14 +1705,15 @@
 
                 addParticles(24, 'fx-snow', () => ({
                     x: rand(-2, 100),
-                    size: rand(9, 23),
+                    size: rand(10, 24),
                     dur: rand(8, 18),
                     delay: rand(0, 16),
                     drift: rand(-10, 12),
                     op: rand(0.4, 0.9),
                     colorA: pick(colors),
-                    glow: 'rgba(79, 195, 247, 0.55)'
-                }), flakes);
+                    glow: 'rgba(79, 195, 247, 0.55)',
+                    svg: snowCrystalSvg(Math.floor(rand(0, 2)))
+                }));
 
                 // A few large, out-of-focus crystals for a real camera-depth feel.
                 addParticles(5, 'fx-snow', () => ({
@@ -1628,8 +1725,9 @@
                     op: rand(0.14, 0.3),
                     colorA: '#ffffff',
                     glow: 'rgba(179, 229, 252, 0.7)',
-                    blur: rand(2, 3.6)
-                }), ['❄', '❅']);
+                    blur: rand(2, 3.6),
+                    svg: snowCrystalSvg(Math.floor(rand(0, 2)))
+                }));
 
                 addParticles(10, 'fx-frost', () => ({
                     x: rand(0, 100),
@@ -1671,6 +1769,21 @@
                     op: rand(0.25, 0.75),
                     glow: 'rgba(255, 236, 179, 0.9)'
                 }));
+
+                // Butterflies fluttering across the meadow.
+                const wingColors = ['#ec6f9c', '#ba68c8', '#f48fb1', '#ef9fbe'];
+                for (let i = 0; i < 3; i++) {
+                    const butterfly = document.createElement('span');
+                    butterfly.className = 'fx-butterfly';
+                    butterfly.style.setProperty('--top', rand(20, 60) + 'vh');
+                    butterfly.style.setProperty('--size', rand(26, 40) + 'px');
+                    butterfly.style.setProperty('--dur', rand(22, 34) + 's');
+                    butterfly.style.setProperty('--delay', (-rand(0, 20)) + 's');
+                    butterfly.style.setProperty('--rise', rand(-70, 70) + 'px');
+                    butterfly.style.setProperty('--color', pick(wingColors));
+                    butterfly.innerHTML = BUTTERFLY_SVG;
+                    overlay.appendChild(butterfly);
+                }
             }
 
             function buildSummer() {
@@ -1698,6 +1811,19 @@
                     op: rand(0.12, 0.35),
                     glow: 'rgba(255, 213, 79, 0.55)'
                 }));
+
+                // Distant birds gliding through the warm sky.
+                for (let i = 0; i < 3; i++) {
+                    const bird = document.createElement('span');
+                    bird.className = 'fx-bird';
+                    bird.style.setProperty('--top', rand(8, 38) + 'vh');
+                    bird.style.setProperty('--size', rand(20, 34) + 'px');
+                    bird.style.setProperty('--dur', rand(26, 40) + 's');
+                    bird.style.setProperty('--delay', (-rand(0, 30)) + 's');
+                    bird.style.setProperty('--rise', rand(-50, 50) + 'px');
+                    bird.innerHTML = BIRD_SVG;
+                    overlay.appendChild(bird);
+                }
             }
 
             function sync() {
